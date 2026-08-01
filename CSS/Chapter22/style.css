@@ -1,0 +1,90 @@
+/* 2.4 Setup Border Box */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  background-color: #f0f2f5;
+}
+
+/* Row Clearing Logic */
+.row::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.header,
+.footer {
+  background-color: #1e293b;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.main {
+  border-top: 5px solid #6366f1;
+}
+
+/* 2.5.1 MOBILE-FIRST DESIGN (Default) */
+[class*="col-"] {
+  float: left;
+  width: 100%; /* All elements are full width on mobile */
+  padding: 10px;
+}
+
+/* 2.4 TABLET BREAKPOINT (min-width: 600px) */
+@media only screen and (min-width: 600px) {
+  .col-m-1 {
+    width: 8.33%;
+  }
+  .col-m-2 {
+    width: 16.66%;
+  }
+  .col-m-3 {
+    width: 25%;
+  }
+  .col-m-4 {
+    width: 33.33%;
+  }
+  .col-m-8 {
+    width: 66.66%;
+  }
+  .col-m-12 {
+    width: 100%;
+  }
+}
+
+/* 2.4 DESKTOP BREAKPOINT (min-width: 768px) */
+@media only screen and (min-width: 768px) {
+  .col-1 {
+    width: 8.33%;
+  }
+  .col-3 {
+    width: 25%;
+  }
+  .col-6 {
+    width: 50%;
+  }
+  .col-12 {
+    width: 100%;
+  }
+}
+
+/* Landscape Mode Tweak */
+@media only screen and (orientation: landscape) and (max-width: 768px) {
+  body {
+    background-color: #e2e8f0;
+  }
+}

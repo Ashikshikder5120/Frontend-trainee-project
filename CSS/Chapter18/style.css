@@ -1,0 +1,99 @@
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f8fafc;
+  font-size: 1.6rem;
+  padding: 20px;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+.card {
+  background: white;
+  padding: 30px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* 8.1 Display vs Visibility */
+.box-container {
+  display: flex;
+  gap: 10px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+.box {
+  padding: 20px;
+  color: white;
+  border-radius: 8px;
+  text-align: center;
+}
+.red-box {
+  background: #ef4444;
+}
+.green-box {
+  background: #10b981;
+}
+.blue-box {
+  background: #3b82f6;
+}
+
+.hidden {
+  display: none;
+} /* Space is removed */
+.invisible {
+  visibility: hidden;
+} /* Space is kept */
+
+/* 8.6 Shadows */
+.shadow-text {
+  font-size: 4rem;
+  color: #fff;
+  background: #1e293b;
+  padding: 10px;
+  text-shadow:
+    2px 2px 5px #f43f5e,
+    -2px -2px 5px #3b82f6;
+  text-align: center;
+}
+
+.shadow-box {
+  background: #fff;
+  color: #333;
+  border: 1px solid #eee;
+  box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.1); /* h v blur spread color */
+}
+
+/* 8.10 Transforms */
+.rotate-box {
+  background: #f59e0b;
+  transform: rotate(10deg);
+  margin: 30px 0;
+}
+
+.scale-box {
+  background: #8b5cf6;
+  transition: transform 0.3s;
+  cursor: pointer;
+}
+.scale-box:hover {
+  transform: scale(1.1); /* Increases size by 10% */
+}
+
+/* 8.7 Columns */
+.newspaper {
+  column-count: 3;
+  column-gap: 40px;
+  column-rule: 1px solid #cbd5e1;
+  text-align: justify;
+}

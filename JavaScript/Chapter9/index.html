@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Shikder Systems | Complete Async Engine</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Plus+Jakarta+Sans:wght@400;800&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --neon: #00f2ff;
+      --violet: #7000ff;
+      --bg: #050505;
+      --panel: #111;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: #eee;
+      margin: 0;
+      display: flex;
+    }
+
+    nav {
+      width: 280px;
+      height: 100vh;
+      position: fixed;
+      background: #000;
+      padding: 25px;
+      border-right: 1px solid #222;
+      overflow-y: auto;
+    }
+
+    nav h2 {
+      color: var(--neon);
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--violet);
+      padding-bottom: 10px;
+    }
+
+    nav a {
+      color: #888;
+      text-decoration: none;
+      display: block;
+      padding: 10px 0;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--neon);
+      padding-left: 10px;
+    }
+
+    main {
+      margin-left: 280px;
+      padding: 50px;
+      width: calc(100% - 280px);
+    }
+
+    .recipe-card {
+      background: var(--panel);
+      border-radius: 15px;
+      padding: 25px;
+      margin-bottom: 30px;
+      border: 1px solid #222;
+    }
+
+    .num {
+      color: var(--violet);
+      font-family: 'JetBrains Mono';
+      font-weight: bold;
+      font-size: 0.8rem;
+    }
+
+    h3 {
+      margin: 5px 0 15px 0;
+      font-size: 1.4rem;
+    }
+
+    .terminal {
+      background: #000;
+      padding: 15px;
+      border-radius: 10px;
+      color: #0f0;
+      font-family: 'JetBrains Mono';
+      font-size: 0.85rem;
+      margin-top: 15px;
+      border: 1px solid #333;
+      min-height: 40px;
+    }
+
+    button {
+      background: var(--violet);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      opacity: 0.8;
+      transform: translateY(-2px);
+    }
+
+    .code-view {
+      background: #1a1a1a;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      color: #ccc;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <h2>SHIKDER ASYNC</h2>
+    <a href="#9.1">9.1 Update Page Loop</a>
+    <a href="#9.2">9.2 Promise Functions</a>
+    <a href="#9.3">9.3 Callback to Promise</a>
+    <a href="#9.4">9.4 Multiple Tasks (All)</a>
+    <a href="#9.5">9.5 Async / Await</a>
+    <a href="#9.6">9.6 Event Listeners</a>
+    <a href="#9.7">9.7 Web Workers</a>
+    <a href="#9.8">9.8 Worker Errors</a>
+    <a href="#9.9">9.9 Worker Comms</a>
+  </nav>
+
+  <main>
+    <h1 style="border-bottom: 2px solid var(--violet); padding-bottom: 10px;">Asynchronous Programming</h1>
+
+    <section id="9.1" class="recipe-card">
+      <span class="num">RECIPE 9.1</span>
+      <h3>Updating Page During Loop</h3>
+      <button onclick="run91()">Start Async Loop</button>
+      <div id="out91" class="terminal">> Idle...</div>
+    </section>
+
+    <section id="9.2" class="recipe-card">
+      <span class="num">RECIPE 9.2</span>
+      <h3>Using Promise Functions</h3>
+      <button onclick="run92()">Fetch Cloud Data</button>
+      <div id="out92" class="terminal">> Waiting for Fetch...</div>
+    </section>
+
+    <section id="9.3" class="recipe-card">
+      <span class="num">RECIPE 9.3</span>
+      <h3>Callback to Promise</h3>
+      <button onclick="run93()">Test Promisified Delay</button>
+      <div id="out93" class="terminal">> Status: --</div>
+    </section>
+
+    <section id="9.4" class="recipe-card">
+      <span class="num">RECIPE 9.4</span>
+      <h3>Multiple Async Tasks (Parallel)</h3>
+      <button onclick="run94()">Fire All (Promise.all)</button>
+      <div id="out94" class="terminal">> Parallel Results: --</div>
+    </section>
+
+    <section id="9.5" class="recipe-card">
+      <span class="num">RECIPE 9.5</span>
+      <h3>Async / Await Syntax</h3>
+      <button onclick="run95()">Run Await Block</button>
+      <div id="out95" class="terminal">> Log: --</div>
+    </section>
+
+    <section id="9.6" class="recipe-card">
+      <span class="num">RECIPE 9.6</span>
+      <h3>Removing Event Listeners</h3>
+      <p style="font-size:0.8rem; color:#888;">Avoiding memory leaks by cleaning up listeners.</p>
+      <button id="leakBtn">Click to Test</button>
+      <button onclick="cleanup96()" style="background:#444;">Cleanup Listener</button>
+      <div id="out96" class="terminal">> Status: Listener Active</div>
+    </section>
+
+    <section id="9.7" class="recipe-card">
+      <span class="num">RECIPE 9.7</span>
+      <h3>Web Workers (Multi-Threading)</h3>
+      <button onclick="run97()">Start Worker Thread</button>
+      <div id="out97" class="terminal">> Background Thread: Idle</div>
+    </section>
+
+    <section id="9.8" class="recipe-card">
+      <span class="num" style="color:#ff4444;">RECIPE 9.8</span>
+      <h3>Handling Worker Errors</h3>
+      <button style="background:#ff4444;" onclick="run98()">Trigger Worker Crash</button>
+      <div id="out98" class="terminal" style="color:#ff4444;">> Error log: --</div>
+    </section>
+
+    <section id="9.9" class="recipe-card">
+      <span class="num">RECIPE 9.9</span>
+      <h3>Communicating with Workers</h3>
+      <button onclick="run99()">Post Message to Worker</button>
+      <div id="out99" class="terminal">> Response: --</div>
+    </section>
+  </main>
+
+  <script>
+    // 9.1: Non-blocking loop
+    function run91() {
+      const out = document.getElementById('out91');
+      const start = Date.now();
+      let i = 0;
+      const loop = () => {
+        if (Date.now() - start < 2000) {
+          i++; out.innerText = `Shikder Count: ${i}`;
+          setTimeout(loop, 0);
+        } else { out.innerText = `Final: ${i} (No UI Freeze)`; }
+      };
+      loop();
+    }
+
+    // 9.2: Promise Fetch
+    function run92() {
+      const out = document.getElementById('out92');
+      fetch('https://jsonplaceholder.typicode.com/posts/1')
+        .then(r => r.json())
+        .then(d => out.innerText = `Success: ${d.title}`)
+        .catch(e => out.innerText = `Fail: ${e}`);
+    }
+
+    // 9.3: Promisify callback
+    const shikderWait = ms => new Promise(res => setTimeout(res, ms));
+    function run93() {
+      const out = document.getElementById('out93');
+      out.innerText = "System Sleeping...";
+      shikderWait(2000).then(() => out.innerText = "Awake! (Promise Resolved)");
+    }
+
+    // 9.4: Promise.all
+    function run94() {
+      const out = document.getElementById('out94');
+      const p1 = shikderWait(1000).then(() => "Task 1");
+      const p2 = shikderWait(2000).then(() => "Task 2");
+      Promise.all([p1, p2]).then(r => out.innerText = `Completed: ${r.join(' & ')}`);
+    }
+
+    // 9.5: Async/Await
+    async function run95() {
+      const out = document.getElementById('out95');
+      out.innerText = "Fetching...";
+      const res = await fetch('https://jsonplaceholder.typicode.com/users/1');
+      const data = await res.json();
+      out.innerText = `User: ${data.username}`;
+    }
+
+    // 9.6: Listener Cleanup
+    const leakBtn = document.getElementById('leakBtn');
+    const handler = () => document.getElementById('out96').innerText = "Clicked!";
+    leakBtn.addEventListener('click', handler);
+    function cleanup96() {
+      leakBtn.removeEventListener('click', handler);
+      document.getElementById('out96').innerText = "Listener Removed. Try clicking.";
+    }
+
+    // Worker Blob for 9.7, 9.8, 9.9
+    const blob = new Blob([`
+        self.onmessage = function(e) {
+            if(e.data === 'error') throw new Error("Shikder System Crash!");
+            let result = 0;
+            for(let i=0; i<10000000; i++) result += i;
+            self.postMessage("Worker done: " + e.data);
+        };
+    `], { type: 'application/javascript' });
+    const url = URL.createObjectURL(blob);
+
+    // 9.7
+    function run97() {
+      const w = new Worker(url);
+      w.postMessage("Background Job");
+      w.onmessage = e => document.getElementById('out97').innerText = e.data;
+    }
+
+    // 9.8: Worker Error Handling
+    function run98() {
+      const w = new Worker(url);
+      const out = document.getElementById('out98');
+      w.onerror = e => {
+        out.innerText = `CAUGHT: ${e.message}`;
+        w.terminate();
+      };
+      w.postMessage('error');
+    }
+
+    // 9.9: Messaging
+    function run99() {
+      const w = new Worker(url);
+      w.postMessage("Ashik_Shikder_Data_Packet");
+      w.onmessage = e => document.getElementById('out99').innerText = e.data;
+    }
+  </script>
+</body>
+
+</html>

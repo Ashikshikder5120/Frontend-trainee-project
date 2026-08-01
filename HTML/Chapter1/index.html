@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CHAPTER 1: Getting to Know HTML</title>
+
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1005/1005141.png">
+
+  <style>
+    /* Modern & Clean UI Styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #e9ecef;
+      margin: 0;
+      padding: 40px 20px;
+      color: #343a40;
+    }
+
+    .container {
+      max-width: 850px;
+      margin: auto;
+      background: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+
+    header {
+      background: #212529;
+      color: #f8f9fa;
+      padding: 50px 20px;
+      text-align: center;
+      border-bottom: 6px solid #ffc107;
+    }
+
+    .main-content {
+      padding: 40px;
+    }
+
+    h2 {
+      color: #0056b3;
+      border-bottom: 1px solid #dee2e6;
+      padding-bottom: 10px;
+      margin-top: 35px;
+    }
+
+    .interactive-zone {
+      background: #f1f3f5;
+      padding: 25px;
+      border-radius: 12px;
+      border: 2px solid #ced4da;
+      margin-top: 30px;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 12px;
+      border: 1px solid #adb5bd;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 24px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    #result-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #fff;
+      border-left: 5px solid #ffc107;
+      font-size: 1.2rem;
+      min-height: 25px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #f8f9fa;
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+
+    code {
+      color: #d63384;
+      background: #f8f9fa;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Welcome to my site!</h1>
+      <p>Exploring the Foundations of HTML Elements</p>
+    </header>
+
+    <div class="main-content">
+      <section>
+        <h2>.1 Two Types of HTML Elements</h2>
+        <p>An HTML element typically has three portions: an <strong>opening tag</strong>, the content, and a
+          <strong>closing tag</strong>. Some elements without content don't need a closing tag.
+        </p>
+      </section>
+
+      <section>
+        <h2>.2 HTML Document Structure</h2>
+        <p>The <code>&lt;html&gt;</code> element is the root, containing <code>&lt;head&gt;</code> (metadata) and
+          <code>&lt;body&gt;</code> (visible elements).
+        </p>
+      </section>
+
+      <section>
+        <h2>.4 Character Encoding & .5 Element Attributes</h2>
+        <p>Using <code>charset="UTF-8"</code> ensures all global characters display correctly, while the
+          <code>lang</code> attribute sets the page's primary language.
+        </p>
+      </section>
+
+      <section>
+        <h2>.6 Favorite Icon & .7 Comments</h2>
+        <p>Favicons improve site branding in browser tabs. Comments like <code>&lt;!-- comment --&gt;</code> are used to
+          make the code more readable for developers.</p>
+      </section>
+
+      <div class="interactive-zone">
+        <h2>Live Interaction Tool</h2>
+        <p>Enter a value to see how HTML structure renders content:</p>
+        <input type="text" id="userVal" placeholder="Enter your text here...">
+        <button onclick="processInput()">Render Content</button>
+        <div id="result-box">Your output will appear here...</div>
+      </div>
+    </div>
+
+    <footer>
+      <p>Design Study: Chapter 1 | Lab Project | No Copyright Violation Intended</p>
+    </footer>
+  </div>
+
+  <script>
+    // Section 1.2: Script placed at the end of the body
+    function processInput() {
+      var input = document.getElementById('userVal').value;
+      var display = document.getElementById('result-box');
+      if (input.trim() !== "") {
+        display.innerHTML = "<strong>Rendered Output:</strong> " + input;
+      } else {
+        display.innerHTML = "<em>Please enter a valid string.</em>";
+      }
+    }
+  </script>
+
+</body>
+
+</html>

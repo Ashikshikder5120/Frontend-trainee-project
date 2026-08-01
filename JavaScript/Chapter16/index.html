@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 15: JavaScript Errors & Debugging</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 30px;
+        background-color: #9ea181;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .box {
+        background: white;
+        border: 3px solid #333;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 5px 5px 10px gray;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      h2 {
+        color: darkblue;
+      }
+
+      input {
+        width: 100%;
+        max-width: 400px;
+        padding: 8px;
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: none;
+        background: #4caf50;
+        color: white;
+        cursor: pointer;
+        margin-right: 10px;
+      }
+
+      button:hover {
+        background: #43a047;
+      }
+
+      .output {
+        font-weight: bold;
+        color: darkgreen;
+        white-space: pre-wrap;
+        margin-top: 10px;
+      }
+
+      .error {
+        color: red;
+      }
+
+      .log {
+        background: black;
+        color: lime;
+        font-family: monospace;
+        padding: 15px;
+        height: 180px;
+        overflow-y: auto;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 10px;
+        }
+        button {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <h1>⚠️ Chapter 16: JavaScript Errors & Debugging</h1>
+
+    <!-- 15.1 -->
+    <div class="box">
+      <h2>16.1 JavaScript Error Example</h2>
+      <button onclick="runError()">Generate Error</button>
+      <p id="errorOutput" class="output error"></p>
+    </div>
+
+    <!-- 15.2 -->
+    <div class="box">
+      <h2>16.2 try...catch Statement</h2>
+      <input id="tryInput" placeholder="Enter a number" />
+      <button onclick="tryCatchExample()">Check</button>
+      <p id="tryOutput" class="output"></p>
+    </div>
+
+    <!-- 15.3 -->
+    <div class="box">
+      <h2>16.3 Custom Error (throw)</h2>
+      <input id="ageInput" type="number" placeholder="Enter age" />
+      <button onclick="checkAge()">Validate</button>
+      <p id="ageOutput" class="output"></p>
+    </div>
+
+    <!-- 15.4 -->
+    <div class="box">
+      <h2>16.4 finally Block</h2>
+      <button onclick="finallyExample()">Run</button>
+      <p id="finallyOutput" class="output"></p>
+    </div>
+
+    <!-- 15.5 -->
+    <div class="box">
+      <h2>16.5 Debugging with console.log()</h2>
+      <button onclick="debugExample()">Debug</button>
+      <p id="debugOutput" class="output"></p>
+    </div>
+
+    //home
+    <div style="text-align: center; margin-bottom: 20px">
+      <a href="../../project.html" class="home-btn">🏠 Go Back Home</a>
+    </div>
+    <!-- Event Log -->
+    <div class="box">
+      <h2>🧾 Event Log</h2>
+      <div id="log" class="log"></div>
+    </div>
+
+    <script>
+      function logEvent(msg) {
+        const log = document.getElementById("log");
+        log.textContent += `[${new Date().toLocaleTimeString()}] ${msg}\n`;
+        log.scrollTop = log.scrollHeight;
+      }
+
+      // 16.1
+      function runError() {
+        try {
+          nonExistingFunction();
+        } catch (e) {
+          document.getElementById("errorOutput").textContent = e.message;
+          logEvent("JavaScript runtime error occurred");
+        }
+      }
+
+      // 16.2
+      function tryCatchExample() {
+        try {
+          const val = document.getElementById("tryInput").value;
+          if (isNaN(val) || val === "") {
+            throw "Invalid number!";
+          }
+          document.getElementById("tryOutput").textContent =
+            "Valid number: " + val;
+          logEvent("Valid number entered");
+        } catch (err) {
+          document.getElementById("tryOutput").textContent = err;
+          logEvent("Error caught using try...catch");
+        }
+      }
+
+      // 16.3
+      function checkAge() {
+        try {
+          const age = document.getElementById("ageInput").value;
+          if (age < 18) {
+            throw new Error("Age must be 18 or above");
+          }
+          document.getElementById("ageOutput").textContent = "Access granted!";
+          logEvent("Age validation passed");
+        } catch (err) {
+          document.getElementById("ageOutput").textContent = err.message;
+          logEvent("Custom error thrown");
+        }
+      }
+
+      // 16.4
+      function finallyExample() {
+        try {
+          document.getElementById("finallyOutput").textContent =
+            "Running try block...";
+          logEvent("Try block executed");
+        } catch {
+        } finally {
+          document.getElementById("finallyOutput").textContent +=
+            " Finally block executed.";
+          logEvent("Finally block executed");
+        }
+      }
+
+      // 16.5
+      function debugExample() {
+        console.log("Debugging started");
+        console.log("Value:", 42);
+        document.getElementById("debugOutput").textContent =
+          "Check browser console for logs";
+        logEvent("console.log debugging used");
+      }
+    </script>
+  </body>
+</html>

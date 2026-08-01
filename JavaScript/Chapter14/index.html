@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 14: Data Persistence Pro</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #f59e0b;
+      /* Amber/Gold */
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --text-light: #f8fafc;
+      --accent-blue: #38bdf8;
+      --success: #10b981;
+    }
+
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: var(--bg-dark);
+      background-image: radial-gradient(circle at 50% 50%, #1e1b4b 0%, transparent 80%);
+      color: var(--text-light);
+      margin: 0;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      margin: 0;
+      background: linear-gradient(135deg, var(--primary), #fbbf24);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 800;
+    }
+
+    /* Dashboard Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--primary);
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Inputs & Buttons */
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 0.9rem;
+      color: #94a3b8;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      background: #0f172a;
+      border: 2px solid #334155;
+      border-radius: 12px;
+      color: white;
+      font-size: 1rem;
+      box-sizing: border-box;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      outline: none;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #000;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.8;
+      transform: scale(1.02);
+    }
+
+    /* Output Display */
+    .data-display {
+      background: rgba(0, 0, 0, 0.3);
+      border-left: 5px solid var(--primary);
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+    }
+
+    .data-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--accent-blue);
+      margin-top: 10px;
+      display: block;
+    }
+
+    /* Log Panel */
+    .log-panel {
+      grid-column: 1 / -1;
+      background: #020617;
+      border-radius: 20px;
+      padding: 25px;
+      margin-top: 20px;
+    }
+
+    .log-content {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--success);
+      height: 150px;
+      overflow-y: auto;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+
+    /* List Items */
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #334155;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .home-btn {
+      display: inline-block;
+      margin-top: 40px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1px solid #94a3b8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <h1>📂 Data Persistence</h1>
+      <p>Browser Storage, Cookies & IndexedDB Management</p>
+    </header>
+
+
+
+    <div class="grid">
+      <div class="card">
+        <h2>🍪 Cookie Manager (14.1)</h2>
+        <div class="input-group">
+          <input type="text" id="cookieKey" placeholder="Enter Key...">
+          <div style="margin-top:8px"></div>
+          <input type="text" id="cookieValue" placeholder="Enter Value...">
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" id="setCookieBtn">Set</button>
+          <button class="btn-outline" id="getCookieBtn">Get</button>
+          <button class="btn-danger" id="eraseCookieBtn">Erase</button>
+        </div>
+        <span class="data-label">Active Cookie:</span>
+        <div id="cookieOutput" class="data-display">No data...</div>
+      </div>
+
+      <div class="card">
+        <h2>⚡ Web Storage API (14.2)</h2>
+        <div class="input-group">
+          <input type="text" id="key" placeholder="Universal Key...">
+          <div style="margin-top:8px"></div>
+          <input type="text" id="value" placeholder="Universal Value...">
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" id="setDataBtn">Sync All</button>
+          <button class="btn-danger" id="eraseDataBtn">Clear All</button>
+        </div>
+
+        <span class="data-label">SessionStorage:</span>
+        <div id="sessionstr" class="data-display">-</div>
+
+        <span class="data-label">LocalStorage:</span>
+        <div id="localstr" class="data-display">-</div>
+      </div>
+
+      <div class="card">
+        <h2>📦 IndexedDB Native (14.4)</h2>
+        <p style="font-size: 0.9rem; color:#94a3b8">Low-level browser database engine.</p>
+        <button class="btn-primary" id="getRandom" style="width: 100%;">Fetch Random Record</button>
+        <span class="data-label">DB Result:</span>
+        <div id="idbOutput" class="data-display">Click to retrieve...</div>
+      </div>
+
+      <div class="card">
+        <h2>🚀 IndexedDB (idb Lib)</h2>
+        <div class="input-group">
+          <input type="text" id="name" placeholder="Reader Name">
+          <div style="margin-top:8px"></div>
+          <input type="number" id="age" placeholder="Age">
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" id="setBtn">Add Record</button>
+          <button class="btn-outline" id="getBtn">Sync List</button>
+        </div>
+        <span class="data-label">Reader Registry:</span>
+        <ul id="data-list"></ul>
+      </div>
+    </div>
+
+    <div class="log-panel">
+      <h2 style="font-size: 1.1rem; color: var(--success)">🧾 System Event Log</h2>
+      <div id="log" class="log-content">> System initialized...</div>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="../../project.html" class="home-btn">🏠 Return to Project Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    function logEvent(message) {
+      const log = document.getElementById("log");
+      log.textContent += `\n[${new Date().toLocaleTimeString()}] ${message}`;
+      log.scrollTop = log.scrollHeight;
+    }
+
+    // --- Cookies ---
+    function setCookie(key, value) {
+      const date = new Date();
+      date.setTime(date.getTime() + 7 * 24 * 60 * 60 * 1000);
+      document.cookie = `${key}=${value};expires=${date.toUTCString()};path=/`;
+      logEvent(`Cookie Set: ${key}`);
+    }
+
+    function getCookie(key) {
+      const cookies = document.cookie.split("; ");
+      const cookie = cookies.find((c) => c.startsWith(key + "="));
+      return cookie ? cookie.split("=")[1] : null;
+    }
+
+    document.getElementById("setCookieBtn").onclick = () => {
+      const k = document.getElementById("cookieKey").value;
+      const v = document.getElementById("cookieValue").value;
+      if (k && v) {
+        setCookie(k, v);
+        document.getElementById("cookieOutput").textContent = v;
+      }
+    };
+
+    document.getElementById("getCookieBtn").onclick = () => {
+      const k = document.getElementById("cookieKey").value;
+      const v = getCookie(k);
+      document.getElementById("cookieOutput").textContent = v || "Not Found";
+      logEvent(`Cookie Query: ${k}`);
+    };
+
+    // --- Web Storage ---
+    document.getElementById("setDataBtn").onclick = () => {
+      const k = document.getElementById("key").value;
+      const v = document.getElementById("value").value;
+      if (k && v) {
+        sessionStorage.setItem(k, v);
+        localStorage.setItem(k, v);
+        logEvent(`Storage Synced: ${k}`);
+        updateStorageDisplay(k);
+      }
+    };
+
+    function updateStorageDisplay(k) {
+      document.getElementById("sessionstr").textContent = sessionStorage.getItem(k) || "Empty";
+      document.getElementById("localstr").textContent = localStorage.getItem(k) || "Empty";
+    }
+
+    document.getElementById("eraseDataBtn").onclick = () => {
+      const k = document.getElementById("key").value;
+      sessionStorage.removeItem(k);
+      localStorage.removeItem(k);
+      updateStorageDisplay(k);
+      logEvent(`Storage Cleared: ${k}`);
+    };
+
+    // --- Native IndexedDB ---
+    let db;
+    const request = indexedDB.open("Cookbook", 1);
+    request.onupgradeneeded = (e) => {
+      db = e.target.result;
+      const store = db.createObjectStore("reader", { keyPath: "id", autoIncrement: true });
+      store.add({ name: "Admin", age: 30, experience: 5 });
+    };
+    request.onsuccess = (e) => db = e.target.result;
+
+    document.getElementById("getRandom").onclick = () => {
+      const tx = db.transaction("reader", "readonly");
+      const store = tx.objectStore("reader");
+      const req = store.get(1);
+      req.onsuccess = () => {
+        const r = req.result;
+        document.getElementById("idbOutput").textContent = r ? `${r.name} (${r.age})` : "No data";
+        logEvent("Native IDB Fetch Success");
+      };
+    };
+  </script>
+
+  <script type="module">
+    import { openDB } from "https://unpkg.com/idb?module";
+
+    async function init() {
+      const db = await openDB("ReaderLibrary", 1, {
+        upgrade(db) {
+          db.createObjectStore("reader", { keyPath: "id", autoIncrement: true });
+        }
+      });
+
+      document.getElementById("setBtn").onclick = async () => {
+        const name = document.getElementById("name").value;
+        const age = document.getElementById("age").value;
+        if (name && age) {
+          await db.add("reader", { name, age });
+          logEvent(`Library Add: ${name}`);
+          document.getElementById("getBtn").click();
+        }
+      };
+
+      document.getElementById("getBtn").onclick = async () => {
+        const readers = await db.getAll("reader");
+        const list = document.getElementById("data-list");
+        list.innerHTML = readers.map(r => `<li><span>${r.name}</span> <b style="color:var(--primary)">${r.age} yrs</b></li>`).join("");
+        logEvent("Library Sync Complete");
+      };
+    }
+    init();
+  </script>
+
+</body>
+
+</html>

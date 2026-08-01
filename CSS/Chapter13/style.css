@@ -1,0 +1,48 @@
+/* Standard Reset */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  font-size: 1.6rem;
+  background: #f8fafc;
+  padding: 20px;
+}
+
+.main-container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Specificity Test */
+#main-id {
+  color: red;
+} /* ID is stronger */
+.sub-class {
+  color: blue;
+}
+
+/* Inheritance Section */
+.parent-box {
+  color: red; /* Parent color */
+  border: 2px solid #ddd;
+  padding: 15px;
+}
+
+.green-text {
+  color: green;
+}
+
+.force-inherit {
+  color: green; /* Normal rule */
+  color: inherit; /* Rule 3.5: Back to Parent Red */
+}

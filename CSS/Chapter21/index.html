@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive CSS Lab | Ashik Shikder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app-wrapper">
+    <aside class="sidebar">
+      <h2>Settings</h2>
+      <div class="input-group">
+        <label>Change Theme Color:</label>
+        <input type="color" id="colorPicker" value="#6366f1"
+          oninput="document.documentElement.style.setProperty('--primary-color', this.value)">
+      </div>
+
+      <div class="input-group">
+        <label>Adjust Content Width (%):</label>
+        <input type="range" min="50" max="100" value="90"
+          oninput="document.documentElement.style.setProperty('--content-width', this.value + '%')">
+      </div>
+
+      <div class="info-card">
+        <p>Note: This dashboard uses <strong>CSS Variables</strong> and <strong>calc()</strong> for real-time
+          adjustments.</p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="header">
+        <h1>Advanced CSS Laboratory</h1>
+      </header>
+
+      <section class="counter-demo">
+        <h3>Auto-Generated Index (CSS Counters)</h3>
+        <div class="lesson">
+          <h1>Web Development</h1>
+          <h2>Understanding HTML5</h2>
+          <h2>Mastering CSS3</h2>
+
+          <h1>Backend Systems</h1>
+          <h2>Node.js Integration</h2>
+          <h2>Database Management</h2>
+        </div>
+      </section>
+
+      <footer class="footer">
+        Fixed Footer via calc(100vh - height)
+      </footer>
+    </main>
+  </div>
+
+</body>
+
+</html>

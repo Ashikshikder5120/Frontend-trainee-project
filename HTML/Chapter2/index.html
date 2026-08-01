@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHAPTER 2: HTML Elements - Complete Project</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --secondary: #64748b;
+      --success: #22c55e;
+      --bg: #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--bg);
+      margin: 0;
+      padding-bottom: 50px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: white;
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .main-wrapper {
+      max-width: 1100px;
+      margin: -40px auto 0;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+    }
+
+    /* Section Headings from Truman's Book */
+    .truman-section-title {
+      color: var(--primary);
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 10px;
+      margin-top: 40px;
+      font-weight: 800;
+    }
+
+    /* .4.1 Image Map Interaction UI */
+    .map-container {
+      text-align: center;
+      padding: 20px;
+      background: #f1f5f9;
+      border-radius: 12px;
+      border: 2px dashed var(--primary);
+    }
+
+    /* .6 Tables UI */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+    }
+
+    th,
+    td {
+      border: 1px solid #e2e8f0;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .days {
+      background-color: #fef9c3;
+    }
+
+    .weekend {
+      background-color: #dbeafe;
+    }
+
+    /* Navigation Buttons */
+    .btn-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 20px 0;
+    }
+
+    .nav-link {
+      padding: 12px 20px;
+      background: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    /* .8 Progress & Meter */
+    .stat-box {
+      margin: 15px 0;
+    }
+
+    progress,
+    meter {
+      width: 100%;
+      height: 20px;
+      border-radius: 10px;
+    }
+
+    /* Code Blocks */
+    pre {
+      background: #1e293b;
+      color: #38bdf8;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    .status-msg {
+      margin-top: 15px;
+      padding: 15px;
+      background: #dcfce7;
+      color: #166534;
+      border-radius: 8px;
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>CHAPTER 2: Getting to Know HTML Elements</h1>
+    <p>A Professional Lab Implementation (Section .1 - .11)</p>
+  </header>
+
+  <div class="main-wrapper">
+
+    <h2 class="truman-section-title">.1 Headings & .2 Paragraphs</h2>
+    <h1>Top Level Heading (h1)</h1>
+    <h3>Subsection Heading (h3)</h3>
+    <p>According to the book, <code>&lt;p&gt;</code> elements are used to create structural paragraphs. This ensures the
+      text is readable and correctly formatted.</p>
+
+    <h2 class="truman-section-title">.3 Hyperlinks (External, Internal & Download)</h2>
+    <div class="btn-group">
+      <a href="https://www.google.com" target="_blank" class="nav-link">.3.1 External Link</a>
+      <a href="#table-section" class="nav-link" style="background:var(--secondary)">.3.2 Internal: Jump to Table</a>
+      <a href="#" download class="nav-link" style="background:var(--success)">.3.3 Test Download</a>
+    </div>
+
+    <h2 class="truman-section-title">.4.1 Image Map Interaction</h2>
+    <div class="map-container">
+      <p>Click on the different parts of the image map below:</p>
+      <img src="https://via.placeholder.com/400x150/2563eb/ffffff?text=Interactive+Navigation+Bar" alt="Navigation bar"
+        usemap="#nav-bar" style="max-width: 100%; border-radius: 8px;">
+
+      <map name="nav-bar">
+        <area shape="rect" coords="20,20,180,130" alt="Option 1" href="javascript:void(0)"
+          onclick="showMsg('Left Section Clicked!')">
+        <area shape="rect" coords="220,20,380,130" alt="Option 2" href="javascript:void(0)"
+          onclick="showMsg('Right Section Clicked!')">
+      </map>
+      <div id="status-display" class="status-msg"></div>
+    </div>
+
+    <h2 class="truman-section-title" id="table-section">.6 Tables (Organized Data)</h2>
+    <table>
+      <caption>September 2022 Calendar</caption>
+      <colgroup>
+        <col span="5" class="days">
+        <col span="2" class="weekend">
+      </colgroup>
+      <thead>
+        <tr>
+          <th>Mon</th>
+          <th>Tue</th>
+          <th>Wed</th>
+          <th>Thu</th>
+          <th>Fri</th>
+          <th>Sat</th>
+          <th>Sun</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>6</td>
+          <td>7</td>
+          <td>8</td>
+          <td>9</td>
+          <td>10</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <td>26</td>
+          <td>27</td>
+          <td>28</td>
+          <td>29</td>
+          <td>30</td>
+          <td colspan="2">Empty</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="truman-section-title">.8 Progress & .8.2 Meter</h2>
+    <div class="stat-box">
+      <label>.8.1 Task Completion:</label>
+      <progress value="65" max="100"></progress>
+      <label>.8.2 System Storage:</label>
+      <meter value="45" max="100"></meter>
+    </div>
+
+    <h2 class="truman-section-title">.9 Code & .11 HTML Entities</h2>
+    <p>Inline code: <code>const student = "Neo Truman";</code></p>
+    <pre>
+// Section .9.2 Example
+function initializeProject() {
+    console.log("Spaces are preserved here");
+}
+    </pre>
+    <p>Entities: &copy; 2026 | &lt; HTML &gt; | &euro; Euro Sign | &trade; Trademark</p>
+
+  </div>
+
+  <footer>
+    <p>Lab Project: Chapter 2 Fundamentals | Completed for Evaluation</p>
+  </footer>
+
+  <script>
+    // Interaction logic for Image Map and UI feedback
+    function showMsg(text) {
+      const display = document.getElementById('status-display');
+      display.style.display = 'block';
+      display.innerText = "Action: " + text;
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Frontend Trainee Project - Ashik Shikder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Frontend Trainee Project by Ashik Shikder — HTML, CSS and JavaScript lessons with secure member login.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono&display=swap"
+    rel="stylesheet">
+  <style>
+    /* basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+      background: #000;
+    }
+
+    a { -webkit-tap-highlight-color: transparent; }
+
+    /* dark mode styles */
+    body.dark {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    body.dark .card,
+    body.dark .info-card {
+      background: rgba(30, 30, 30, 0.95);
+      color: #fff;
+    }
+
+    body.dark .dropdown {
+      background: #222;
+    }
+
+    body.dark .dropdown a {
+      color: #eee;
+      border-bottom: 1px solid #333;
+    }
+
+    body.dark .modal-box {
+      background: #1e1e1e;
+      color: #fff;
+    }
+
+    body.dark .modal-box input {
+      background: #2a2a2a;
+      border-color: #3a3a3a;
+      color: #fff;
+    }
+
+    body.dark .user-menu {
+      background: #1e1e1e;
+    }
+
+    body.dark .user-menu a {
+      color: #eee;
+      border-bottom: 1px solid #333;
+    }
+
+    /* full page background slider */
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+      filter: brightness(0.6);
+      transition: opacity 1.5s ease-in-out;
+      opacity: 1;
+    }
+
+    .page-bg.fade {
+      opacity: 0;
+    }
+
+    /* coding animation canvas */
+    #codeCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      display: none;
+      background: #000;
+    }
+
+    /* navbar */
+    nav {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+      align-items: center;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover,
+    nav ul li a:focus-visible {
+      color: #22c55e;
+    }
+
+    nav ul li a:focus-visible,
+    .actions a:focus-visible,
+    button:focus-visible,
+    input:focus-visible {
+      outline: 2px solid #22c55e;
+      outline-offset: 3px;
+    }
+
+    .lock-icon { font-size: 12px; opacity: 0.7; margin-left: 4px; }
+
+    /* colorful dropdowns with scrolling */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 35px;
+      left: 0;
+      background: #fff;
+      min-width: 250px;
+      max-height: 600px;
+      overflow-y: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      z-index: 2000;
+      padding: 5px 0;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 12px 18px;
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+
+    /* dropdown theme colors */
+    #htmlMenu {
+      border-top: 5px solid #e34c26;
+    }
+
+    #htmlMenu a:hover {
+      background: #fef2f0;
+      color: #e34c26;
+      padding-left: 25px;
+    }
+
+    #cssMenu {
+      border-top: 5px solid #264de4;
+    }
+
+    #cssMenu a:hover {
+      background: #f0f3ff;
+      color: #264de4;
+      padding-left: 25px;
+    }
+
+    #jsMenu {
+      border-top: 5px solid #f7df1e;
+    }
+
+    #jsMenu a:hover {
+      background: #fffdf0;
+      color: #856404;
+      padding-left: 25px;
+    }
+
+    .show {
+      display: block;
+    }
+
+    /* action buttons */
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .actions a {
+      background: #22c55e;
+      padding: 8px 18px;
+      border-radius: 6px;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      border: none;
+      font-size: 14px;
+      display: inline-block;
+    }
+
+    .actions a:hover { background: #1ba34e; }
+
+    #themeBtn { background: rgba(255,255,255,0.15); }
+    #themeBtn:hover { background: rgba(255,255,255,0.28); }
+
+    /* logged-in user chip */
+    .user-chip {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.12);
+      padding: 6px 14px 6px 6px;
+      border-radius: 30px;
+      cursor: pointer;
+      color: #fff;
+      position: relative;
+    }
+
+    .user-chip .avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #22c55e;
+      color: #032;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .role-badge {
+      font-size: 10px;
+      background: #f59e0b;
+      color: #000;
+      padding: 1px 6px;
+      border-radius: 10px;
+      margin-left: 4px;
+      font-weight: 700;
+      vertical-align: middle;
+    }
+
+    .user-menu {
+      display: none;
+      position: absolute;
+      top: 46px;
+      right: 0;
+      background: #fff;
+      min-width: 200px;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      overflow: hidden;
+      z-index: 2000;
+    }
+
+    .user-menu.show { display: block; }
+
+    .user-menu .um-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid #eee;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .user-menu .um-header strong { display:block; color:#111; font-size:14px; }
+
+    .user-menu a {
+      display: block;
+      padding: 12px 16px;
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .user-menu a:hover { background: #f5f5f5; color: #22c55e; }
+
+    /* hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 6px;
+    }
+
+    .hamburger span {
+      width: 24px;
+      height: 3px;
+      background: #fff;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* HUGE HERO TEXT */
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 20px 40px;
+      gap: 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.4);
+      color: #4ade80;
+      padding: 7px 16px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .eyebrow .dot {
+      width: 7px;
+      height: 7px;
+      background: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 8px 2px rgba(34,197,94,0.8);
+    }
+
+    .hero-text h1 {
+      font-size: 72px;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 1.05;
+      text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7);
+      letter-spacing: -1px;
+    }
+
+    .hero-text h1 span {
+      background: linear-gradient(90deg, #22c55e, #4ade80 60%, #a3e635);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 20px;
+      margin: 16px 0 8px;
+      color: #d1fae5;
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .hero-text button {
+      padding: 15px 40px;
+      background: #22c55e;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 10px 25px rgba(34, 197, 94, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .hero-text button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(34, 197, 94, 0.5);
+    }
+
+    .btn-ghost {
+      padding: 15px 34px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 50px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: 700;
+      font-size: 16px;
+      backdrop-filter: blur(6px);
+      transition: 0.2s ease;
+    }
+
+    .btn-ghost:hover { background: rgba(255,255,255,0.18); transform: translateY(-3px); }
+
+    /* stat pills under hero */
+    .stats-strip {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .stat-pill {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(10px);
+      padding: 14px 26px;
+      border-radius: 16px;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .stat-pill .num {
+      font-size: 26px;
+      font-weight: 800;
+      color: #4ade80;
+      line-height: 1.1;
+    }
+
+    .stat-pill .lbl {
+      font-size: 12px;
+      color: #cbd5e1;
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    /* dashboard section wrapper */
+    .dash-section {
+      padding: 50px 8% 10px;
+    }
+
+    .section-header {
+      max-width: 700px;
+      margin: 0 auto 34px;
+      text-align: center;
+    }
+
+    .section-header .eyebrow { margin-bottom: 12px; }
+
+    .section-header h2 {
+      color: #fff;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      color: #9ca3af;
+      font-size: 15px;
+    }
+
+    /* progress / continue learning card */
+    .progress-card {
+      max-width: 1000px;
+      margin: 0 auto 10px;
+      background: linear-gradient(135deg, rgba(34,197,94,0.15), rgba(255,255,255,0.06));
+      border: 1px solid rgba(34,197,94,0.35);
+      border-radius: 22px;
+      padding: 30px 34px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+      backdrop-filter: blur(10px);
+      color: #fff;
+    }
+
+    .progress-card .pc-left { flex: 1; min-width: 240px; }
+
+    .progress-card h3 { font-size: 18px; margin-bottom: 6px; }
+    .progress-card .pc-sub { font-size: 13px; color: #d1fae5; margin-bottom: 14px; }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #22c55e, #a3e635);
+      border-radius: 20px;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+
+    .progress-pct { font-size: 12px; color: #cbd5e1; margin-top: 6px; }
+
+    .progress-card .pc-right {
+      text-align: center;
+    }
+
+    .progress-card .pc-right .big-num {
+      font-size: 34px;
+      font-weight: 800;
+      color: #4ade80;
+    }
+
+    .progress-card .pc-right .resume-btn {
+      display: inline-block;
+      margin-top: 10px;
+      background: #22c55e;
+      color: #fff;
+      padding: 10px 22px;
+      border-radius: 30px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .progress-card .pc-right .resume-btn:hover { background: #1ba34e; }
+
+    /* learning tracks */
+    .track-grid {
+      max-width: 1100px;
+      margin: 36px auto 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .track-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 28px;
+      color: #1f2937;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border-top: 5px solid #22c55e;
+    }
+
+    .track-card:hover { transform: translateY(-6px); box-shadow: 0 18px 34px rgba(0,0,0,0.35); }
+
+    .track-card.html-track { border-top-color: #e34c26; }
+    .track-card.css-track { border-top-color: #264de4; }
+    .track-card.js-track { border-top-color: #f7df1e; }
+
+    .track-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+      background: #f3f4f6;
+    }
+
+    .track-card h3 { font-size: 18px; margin-bottom: 6px; }
+    .track-card p { font-size: 13px; color: #6b7280; margin-bottom: 16px; min-height: 36px; }
+
+    .track-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+
+    .track-bar {
+      width: 100%;
+      height: 7px;
+      background: #e5e7eb;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .track-bar-fill { height: 100%; border-radius: 20px; width: 0%; transition: width 0.5s ease; background: #22c55e; }
+
+    .track-card .explore-link {
+      font-size: 13px;
+      font-weight: 700;
+      color: #22c55e;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Iframe for Content */
+    .frame-wrap {
+      position: relative;
+      width: 95%;
+      margin: 20px auto;
+      display: none;
+    }
+
+    .frame-wrap.show { display: block; }
+
+    #contentFrame {
+      width: 100%;
+      height: 85vh;
+      border: 3px solid #22c55e;
+      background: #fff;
+      border-radius: 15px;
+      display: block;
+    }
+
+    .frame-spinner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.6);
+      border-radius: 15px;
+      color: #22c55e;
+      font-weight: 600;
+      gap: 12px;
+      flex-direction: column;
+    }
+
+    .spinner-ring {
+      width: 42px;
+      height: 42px;
+      border: 4px solid rgba(34,197,94,0.25);
+      border-top-color: #22c55e;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* sections */
+    .section {
+      padding: 60px 10% 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card,
+    .info-card {
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 20px;
+      color: #333;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .card:hover,
+    .info-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 18px 34px rgba(0,0,0,0.3);
+    }
+
+    .card .card-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #22c55e, #4ade80);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 { font-size: 18px; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: #6b7280; }
+
+    .info-card .ic-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .info-card .ic-head .ic-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: #111827;
+      color: #22c55e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+    }
+
+    .info-card h3 { font-size: 16px; }
+    .info-card p { font-size: 14px; margin: 6px 0; color: #374151; }
+    .info-card p strong { color: #111827; }
+
+    .video {
+      padding: 60px 10%;
+      text-align: center;
+    }
+
+    .video iframe {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    @media (max-width: 860px) {
+      .progress-card { flex-direction: column; text-align: center; }
+      .stats-strip { gap: 10px; }
+      .stat-pill { min-width: 100px; padding: 10px 16px; }
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+
+    footer .footer-links {
+      margin-top: 10px;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    footer .footer-links a {
+      color: #22c55e;
+      text-decoration: none;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    footer .footer-links a:hover { text-decoration: underline; }
+
+    /* modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 3000;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      width: 380px;
+      max-width: 90vw;
+      position: relative;
+      text-align: center;
+      color: #333;
+      max-height: 88vh;
+      overflow-y: auto;
+    }
+
+    .modal-box h3 { margin-bottom: 4px; }
+    .modal-box .modal-sub { font-size: 12px; color: #777; margin-bottom: 16px; }
+
+    .field { text-align: left; margin: 10px 0; }
+
+    .field label { display:block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #555; }
+
+    .modal-box input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .modal-box input:focus { border-color: #22c55e; outline: none; }
+
+    .field-error {
+      color: #dc2626;
+      font-size: 12px;
+      margin-top: 4px;
+      display: none;
+      text-align: left;
+    }
+
+    .field-error.show { display: block; }
+
+    .form-msg {
+      font-size: 13px;
+      margin: 8px 0;
+      display: none;
+      padding: 8px 10px;
+      border-radius: 8px;
+    }
+
+    .form-msg.show { display: block; }
+    .form-msg.error { background: #fee2e2; color: #b91c1c; }
+    .form-msg.success { background: #dcfce7; color: #15803d; }
+
+    .modal-box button.primary-btn {
+      width: 100%;
+      padding: 12px;
+      background: #22c55e;
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 15px;
+      margin-top: 6px;
+    }
+
+    .modal-box button.primary-btn:hover { background: #1ba34e; }
+
+    .switch-form {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .switch-form a { color: #22c55e; cursor: pointer; font-weight: 600; text-decoration: none; }
+    .switch-form a:hover { text-decoration: underline; }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+      line-height: 1;
+    }
+
+    .close:hover { color: #333; }
+
+    /* toast */
+    #toastContainer {
+      position: fixed;
+      top: 90px;
+      right: 20px;
+      z-index: 5000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      background: #111;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 10px;
+      border-left: 4px solid #22c55e;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      font-size: 14px;
+      max-width: 320px;
+      animation: toastIn 0.25s ease;
+    }
+
+    .toast.error { border-left-color: #ef4444; }
+
+    @keyframes toastIn {
+      from { transform: translateX(30px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* responsive */
+    @media (max-width: 860px) {
+      .hero-text h1 { font-size: 50px; }
+      .hero-text p { font-size: 18px; }
+
+      .hamburger { display: flex; }
+
+      nav { flex-wrap: wrap; }
+
+      nav ul {
+        display: none;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0;
+        margin-top: 15px;
+      }
+
+      nav ul.mobile-open { display: flex; }
+
+      nav ul li { width: 100%; }
+      nav ul li a { display: block; padding: 10px 0; }
+
+      .dropdown { position: static; box-shadow: none; width: 100%; }
+
+      .actions { margin-left: auto; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        transition-duration: 0.001ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="codeCanvas" aria-hidden="true"></canvas>
+  <div class="page-bg"></div>
+
+  <div id="toastContainer" aria-live="polite"></div>
+
+  <div class="content" id="mainWrapper">
+    <nav>
+      <ul id="navList">
+        <li><a href="javascript:void(0)" onclick="goHome()">Home</a></li>
+        <li>
+          <a onclick="toggleDropdown('htmlMenu')">HTML ▾</a>
+          <div class="dropdown" id="htmlMenu" data-menu="html">
+            <a href="javascript:void(0)" data-target="HTML/Chapter1/index.html">📑 HTML Basics</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter2/index.html">🏗️ HTML Elements</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter3/index.html">🎨 HTML Styles</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter4/index.html">🏛️ HTML Semantic</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter5/index.html">📝 HTML Web Forms</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter6/index.html">🎬 HTML Multimedia</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter7/index.html">📊 HTML Graphics</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter8/index.html">🚀 HTML Advanced</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter9/index.html">⚡ HTML Events</a>
+            <a href="javascript:void(0)" data-target="HTML/Chapter10/index.html">🔌 HTML APIs</a>
+          </div>
+        </li>
+        <li>
+          <a onclick="toggleDropdown('cssMenu')">CSS ▾</a>
+          <div class="dropdown" id="cssMenu" data-menu="css">
+            <a href="javascript:void(0)" data-target="CSS/Chapter11/index.html">🖌️ CSS Basics</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter12/index.html">🎯 CSS Selectors</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter13/index.html">🌊 CSS Cascading</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter14/index.html">📦 CSS Box Model</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter15/index.html">🌈 CSS Colors</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter16/index.html">✍️ CSS Text</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter17/index.html">🖼️ CSS Backgrounds</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter18/index.html">📱 CSS Display</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter19/index.html">📏 CSS Layout</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter20/index.html">🎞️ Transitions & Animations</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter21/index.html">💎 Advanced CSS</a>
+            <a href="javascript:void(0)" data-target="CSS/Chapter22/index.html">💻 Responsive CSS</a>
+          </div>
+        </li>
+        <li>
+          <a onclick="toggleDropdown('jsMenu')">JavaScript ▾</a>
+          <div class="dropdown" id="jsMenu" data-menu="js">
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter1/index3.html">🚀 01. Development Environment</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter2/index.html">📜 02. Strings & Regex</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter3/index.html">🔢 03. Numbers & Math</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter4/index.html">📅 04. Dates & Time</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter5/index.html">📦 05. Arrays & Collections</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter6/index.html">⚙️ 06. Functions & Scope</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter7/index.html">💎 07. Objects & Properties</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter8/index.html">🏛️ 08. Classes & OOP</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter9/index.html">⏳ 09. Async Programming</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter10/index.html">🛠️ 10. Errors & Testing</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter11/index.html">🌐 11. Browser Tools</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter12/index.html">📄 12. Working With HTML</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter13/index.html">📡 13. Fetching Remote Data</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter14/index.html">💾 14. Data Persistence</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter15/index.html">🎬 15. Working with Media</a>
+            <a href="javascript:void(0)" data-target="JavaScript/Chapter16/index.html">💻 16. Web Applications</a>
+          </div>
+        </li>
+        <li><a href="javascript:void(0)" onclick="openPage('contact.html', false)">Contact</a></li>
+      </ul>
+
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="actions">
+        <a id="loginBtn">Login</a>
+
+        <div class="user-chip" id="userChip">
+          <div class="avatar" id="userAvatar">A</div>
+          <span id="userNameLabel">Account</span>
+          <div class="user-menu" id="userMenu">
+            <div class="um-header">
+              Signed in as
+              <strong id="userMenuName">-</strong>
+            </div>
+            <a id="logoutBtn">🚪 Log out</a>
+          </div>
+        </div>
+
+        <a id="themeBtn">Dark Mode</a>
+      </div>
+    </nav>
+
+    <div id="landingSections">
+      <section class="hero">
+        <div class="hero-text">
+          <span class="eyebrow"><span class="dot"></span> Frontend Trainee Dashboard</span>
+          <h1>Welcome to the<br><span>Trainee Project</span></h1>
+          <p>Master the art of Web Development with Ashik Shikder</p>
+          <div class="hero-actions">
+            <button onclick="toggleDropdown('htmlMenu')">Start Learning Now</button>
+            <button class="btn-ghost" onclick="scrollToTracks()">View Learning Tracks</button>
+          </div>
+          <div class="stats-strip">
+            <div class="stat-pill"><div class="num">38</div><div class="lbl">Total Lessons</div></div>
+            <div class="stat-pill"><div class="num">3</div><div class="lbl">Learning Tracks</div></div>
+            <div class="stat-pill"><div class="num" id="statCompleted">0</div><div class="lbl">Completed</div></div>
+            <div class="stat-pill"><div class="num">100%</div><div class="lbl">Hands-on</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dash-section">
+        <div class="progress-card" id="progressCard">
+          <div class="pc-left">
+            <h3 id="progressTitle">Start your first lesson</h3>
+            <p class="pc-sub" id="progressSub">Your learning progress will show up here once you open a chapter.</p>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            <div class="progress-pct" id="progressPctLabel">0 of 38 lessons completed</div>
+          </div>
+          <div class="pc-right">
+            <div class="big-num" id="progressPercent">0%</div>
+            <button class="resume-btn" id="resumeBtn" style="display:none;">Resume Learning</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="dash-section" id="tracksSection">
+        <div class="section-header">
+          <span class="eyebrow"><span class="dot"></span> Explore</span>
+          <h2>Learning Tracks</h2>
+          <p>Pick up where you left off, or jump into a brand-new track.</p>
+        </div>
+        <div class="track-grid">
+          <div class="track-card html-track" onclick="toggleDropdown('htmlMenu')">
+            <div class="track-icon">📑</div>
+            <h3>HTML</h3>
+            <p>Structure the web — from basics to modern browser APIs.</p>
+            <div class="track-meta"><span id="htmlTrackLabel">0 / 10 done</span><span>10 lessons</span></div>
+            <div class="track-bar"><div class="track-bar-fill" id="htmlTrackBar" style="background:#e34c26;"></div></div>
+            <span class="explore-link">Explore chapters →</span>
+          </div>
+          <div class="track-card css-track" onclick="toggleDropdown('cssMenu')">
+            <div class="track-icon">🎨</div>
+            <h3>CSS</h3>
+            <p>Style and layout — from selectors to responsive design.</p>
+            <div class="track-meta"><span id="cssTrackLabel">0 / 12 done</span><span>12 lessons</span></div>
+            <div class="track-bar"><div class="track-bar-fill" id="cssTrackBar" style="background:#264de4;"></div></div>
+            <span class="explore-link">Explore chapters →</span>
+          </div>
+          <div class="track-card js-track" onclick="toggleDropdown('jsMenu')">
+            <div class="track-icon">⚙️</div>
+            <h3>JavaScript</h3>
+            <p>Bring pages to life — logic, async code, DOM and more.</p>
+            <div class="track-meta"><span id="jsTrackLabel">0 / 16 done</span><span>16 lessons</span></div>
+            <div class="track-bar"><div class="track-bar-fill" id="jsTrackBar" style="background:#eab308;"></div></div>
+            <span class="explore-link">Explore chapters →</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="dash-section">
+        <div class="section-header">
+          <span class="eyebrow"><span class="dot"></span> Why this project</span>
+          <h2>Everything You'll Practice</h2>
+          <p>A well-rounded skill set, built one chapter at a time.</p>
+        </div>
+        <div class="features section">
+          <div class="card">
+            <div class="card-icon">📑</div>
+            <h3>HTML5</h3>
+            <p>Build the skeleton of the web with modern semantic tags.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎨</div>
+            <h3>CSS3</h3>
+            <p>Design stunning, responsive layouts with Flexbox and Grid.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⚙️</div>
+            <h3>JavaScript</h3>
+            <p>Bring websites to life with powerful logic and APIs.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📱</div>
+            <h3>Responsive</h3>
+            <p>Optimized for every screen size from Mobile to Desktop.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="dash-section">
+        <div class="section-header">
+          <span class="eyebrow"><span class="dot"></span> Details</span>
+          <h2>Project Overview</h2>
+          <p>Submission and trainee information.</p>
+        </div>
+        <div class="info section">
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-badge">🎓</div><h3>Student Profile</h3></div>
+            <p><strong>Name:</strong> Ashik Shikder</p>
+            <p><strong>Trainee ID:</strong> 1292756</p>
+            <p><strong>Batch:</strong> CS/SCSL-M/68/01</p>
+          </div>
+          <div class="info-card">
+            <div class="ic-head"><div class="ic-badge">📋</div><h3>Submission Details</h3></div>
+            <p><strong>To:</strong> Syed Zahidul Hassan</p>
+            <p><strong>Organization:</strong> Show & Tell Consulting Ltd</p>
+            <p><strong>Date:</strong> 21 Jan 2026</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="video">
+        <div class="section-header">
+          <span class="eyebrow"><span class="dot"></span> Watch</span>
+          <h2>Tutorial Highlight</h2>
+          <p>A quick look at what you'll be building.</p>
+        </div>
+        <iframe src="https://www.youtube.com/embed/dD2EISBDjWM" allowfullscreen title="Tutorial Highlight video"></iframe>
+      </section>
+
+      <footer>
+        <p>© 2026 Trainee Project | Crafted with ❤️ by Ashik Shikder</p>
+        <div class="footer-links">
+          <a onclick="openPage('contact.html', false)">Contact</a>
+          <a onclick="goHome()">Home</a>
+        </div>
+      </footer>
+    </div>
+
+    <div class="frame-wrap" id="frameWrap">
+      <div class="frame-spinner" id="frameSpinner">
+        <div class="spinner-ring"></div>
+        <span>Loading page...</span>
+      </div>
+      <iframe id="contentFrame" title="Lesson content"></iframe>
+    </div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div class="modal" id="loginModal">
+    <div class="modal-box">
+      <span class="close" data-close="loginModal">&times;</span>
+      <h3>Member Login</h3>
+      <p class="modal-sub">Log in to unlock every HTML, CSS & JavaScript lesson.</p>
+      <div class="form-msg" id="loginMsg"></div>
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="username" required>
+          <div class="field-error" id="loginEmailErr">Enter a valid email address.</div>
+        </div>
+        <div class="field">
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" required>
+          <div class="field-error" id="loginPasswordErr">Password is required.</div>
+        </div>
+        <button type="submit" class="primary-btn">Sign In</button>
+      </form>
+      <p class="switch-form">Don't have an account? <a id="goSignup">Sign up</a></p>
+    </div>
+  </div>
+
+  <!-- SIGNUP MODAL -->
+  <div class="modal" id="signupModal">
+    <div class="modal-box">
+      <span class="close" data-close="signupModal">&times;</span>
+      <h3>Create Account</h3>
+      <p class="modal-sub">Sign up to start unlocking lessons.</p>
+      <div class="form-msg" id="signupMsg"></div>
+      <form id="signupForm" novalidate>
+        <div class="field">
+          <label for="signupName">Full Name</label>
+          <input type="text" id="signupName" placeholder="Your name" autocomplete="name" required>
+          <div class="field-error" id="signupNameErr">Name must be at least 2 characters.</div>
+        </div>
+        <div class="field">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" placeholder="you@example.com" autocomplete="username" required>
+          <div class="field-error" id="signupEmailErr">Enter a valid email address.</div>
+        </div>
+        <div class="field">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="At least 6 characters" autocomplete="new-password" required minlength="6">
+          <div class="field-error" id="signupPasswordErr">Password must be at least 6 characters.</div>
+        </div>
+        <div class="field">
+          <label for="signupConfirm">Confirm Password</label>
+          <input type="password" id="signupConfirm" placeholder="Repeat password" autocomplete="new-password" required>
+          <div class="field-error" id="signupConfirmErr">Passwords do not match.</div>
+        </div>
+        <button type="submit" class="primary-btn">Create Account</button>
+      </form>
+      <p class="switch-form">Already have an account? <a id="goLogin">Log in</a></p>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       MATRIX CODING ANIMATION (original)
+    ========================================================= */
+    const canvas = document.getElementById('codeCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#22c55e";
+      ctx.font = fontSize + "px Courier New";
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    let matrixInterval;
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    /* =========================================================
+       TOAST NOTIFICATIONS
+    ========================================================= */
+    function showToast(message, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast' + (type === 'error' ? ' error' : '');
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    /* =========================================================
+       DROPDOWN TOGGLE (original, extended for mobile)
+    ========================================================= */
+    function toggleDropdown(id) {
+      const menu = document.getElementById(id);
+      const isOpen = menu.classList.contains('show');
+      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+      if (!isOpen) menu.classList.add('show');
+    }
+
+    /* =========================================================
+       HAMBURGER (mobile nav)
+    ========================================================= */
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const navList = document.getElementById('navList');
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = navList.classList.toggle('mobile-open');
+      hamburgerBtn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    /* =========================================================
+       AUTH: simple client-side auth store (localStorage)
+       NOTE: This is a trainee/demo project with no backend server,
+       so accounts are stored in the browser only. Passwords are
+       hashed with SHA-256 before storage (never stored in plain text).
+    ========================================================= */
+    const USERS_KEY = 'trainee_users';
+    const SESSION_KEY = 'trainee_session';
+
+    async function hashPassword(password) {
+      const enc = new TextEncoder().encode(password);
+      const digest = await crypto.subtle.digest('SHA-256', enc);
+      return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    function getUsers() {
+      try { return JSON.parse(localStorage.getItem(USERS_KEY)) || []; }
+      catch (e) { return []; }
+    }
+
+    function saveUsers(users) {
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+    }
+
+    function getSession() {
+      try { return JSON.parse(localStorage.getItem(SESSION_KEY)); }
+      catch (e) { return null; }
+    }
+
+    function saveSession(user) {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({
+        name: user.name, email: user.email, role: user.role, loginAt: Date.now()
+      }));
+    }
+
+    function clearSession() {
+      localStorage.removeItem(SESSION_KEY);
+    }
+
+    function isLoggedIn() {
+      return !!getSession();
+    }
+
+    /* Pending lesson: if a guest clicks a locked lesson, remember it
+       and auto-open right after successful login (authorization flow) */
+    let pendingTarget = null;
+
+    async function signup(name, email, password) {
+      const users = getUsers();
+      if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+        throw new Error('An account with this email already exists.');
+      }
+      const passwordHash = await hashPassword(password);
+      const role = users.length === 0 ? 'admin' : 'student'; // first registered user becomes admin
+      const user = { name, email, passwordHash, role };
+      users.push(user);
+      saveUsers(users);
+      saveSession(user);
+      return user;
+    }
+
+    async function login(email, password) {
+      const users = getUsers();
+      const passwordHash = await hashPassword(password);
+      const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.passwordHash === passwordHash);
+      if (!user) throw new Error('Invalid email or password.');
+      saveSession(user);
+      return user;
+    }
+
+    function logout() {
+      clearSession();
+      renderAuthUI();
+      showToast('You have been logged out.');
+      goHome();
+    }
+
+    /* =========================================================
+       AUTH UI RENDERING
+    ========================================================= */
+    function renderAuthUI() {
+      const session = getSession();
+      const loginBtn = document.getElementById('loginBtn');
+      const userChip = document.getElementById('userChip');
+      const userAvatar = document.getElementById('userAvatar');
+      const userNameLabel = document.getElementById('userNameLabel');
+      const userMenuName = document.getElementById('userMenuName');
+
+      if (session) {
+        loginBtn.style.display = 'none';
+        userChip.style.display = 'flex';
+        const initial = session.name ? session.name.trim().charAt(0).toUpperCase() : '?';
+        userAvatar.textContent = initial;
+        userNameLabel.innerHTML = session.name.split(' ')[0] +
+          (session.role === 'admin' ? '<span class="role-badge">ADMIN</span>' : '');
+        userMenuName.textContent = session.name + ' (' + session.email + ')';
+      } else {
+        loginBtn.style.display = 'inline-block';
+        userChip.style.display = 'none';
+      }
+
+      updateLockIcons();
+    }
+
+    function updateLockIcons() {
+      const locked = !isLoggedIn();
+      document.querySelectorAll('.dropdown a[data-target]').forEach(a => {
+        let icon = a.querySelector('.lock-icon');
+        if (locked) {
+          if (!icon) {
+            icon = document.createElement('span');
+            icon.className = 'lock-icon';
+            icon.textContent = '🔒';
+            a.appendChild(icon);
+          }
+        } else if (icon) {
+          icon.remove();
+        }
+      });
+    }
+
+    /* =========================================================
+       PAGE NAVIGATION + AUTHORIZATION GATE
+       protected = true  -> requires login (all lesson chapters)
+       protected = false -> public (e.g. contact page)
+    ========================================================= */
+    function openPage(url, protectedPage = true) {
+      if (protectedPage && !isLoggedIn()) {
+        pendingTarget = url;
+        openModal('loginModal');
+        showToast('Please log in to open this lesson.', 'error');
+        document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+        navList.classList.remove('mobile-open');
+        return;
+      }
+
+      document.getElementById('landingSections').style.display = 'none';
+      document.querySelector('.page-bg').style.display = 'none';
+      document.getElementById('codeCanvas').style.display = 'block';
+
+      const wrap = document.getElementById('frameWrap');
+      const frame = document.getElementById('contentFrame');
+      const spinner = document.getElementById('frameSpinner');
+      wrap.classList.add('show');
+      spinner.style.display = 'flex';
+
+      frame.onload = () => { spinner.style.display = 'none'; };
+      frame.onerror = () => {
+        spinner.style.display = 'none';
+        showToast('This page could not be loaded.', 'error');
+      };
+      frame.src = url;
+
+      if (protectedPage) markVisited(url);
+
+      if (!matrixInterval) matrixInterval = setInterval(drawMatrix, 50);
+      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+      navList.classList.remove('mobile-open');
+    }
+
+    function scrollToTracks() {
+      document.getElementById('tracksSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* =========================================================
+       DASHBOARD PROGRESS TRACKING (localStorage)
+    ========================================================= */
+    const PROGRESS_KEY = 'trainee_progress';
+    const LAST_VISITED_KEY = 'trainee_last_visited';
+    const TRACK_TOTALS = { HTML: 10, CSS: 12, JavaScript: 16 };
+    const TOTAL_LESSONS = TRACK_TOTALS.HTML + TRACK_TOTALS.CSS + TRACK_TOTALS.JavaScript;
+
+    function getProgress() {
+      try { return JSON.parse(localStorage.getItem(PROGRESS_KEY)) || []; }
+      catch (e) { return []; }
+    }
+
+    function markVisited(url) {
+      const progress = getProgress();
+      if (!progress.includes(url)) {
+        progress.push(url);
+        localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress));
+      }
+      localStorage.setItem(LAST_VISITED_KEY, url);
+      renderDashboard();
+    }
+
+    function trackName(url) {
+      const names = { 'HTML/': '📑 HTML lesson', 'CSS/': '🎨 CSS lesson', 'JavaScript/': '⚙️ JavaScript lesson' };
+      for (const prefix in names) if (url.startsWith(prefix)) return names[prefix];
+      return 'lesson';
+    }
+
+    function renderDashboard() {
+      const progress = getProgress();
+      const completed = progress.length;
+      const pct = Math.min(100, Math.round((completed / TOTAL_LESSONS) * 100));
+
+      const statCompleted = document.getElementById('statCompleted');
+      if (statCompleted) statCompleted.textContent = completed;
+
+      const fill = document.getElementById('progressFill');
+      const pctLabel = document.getElementById('progressPercent');
+      const pctText = document.getElementById('progressPctLabel');
+      if (fill) fill.style.width = pct + '%';
+      if (pctLabel) pctLabel.textContent = pct + '%';
+      if (pctText) pctText.textContent = completed + ' of ' + TOTAL_LESSONS + ' lessons completed';
+
+      const title = document.getElementById('progressTitle');
+      const sub = document.getElementById('progressSub');
+      const resumeBtn = document.getElementById('resumeBtn');
+      const lastVisited = localStorage.getItem(LAST_VISITED_KEY);
+
+      if (completed === 0) {
+        if (title) title.textContent = 'Start your first lesson';
+        if (sub) sub.textContent = 'Your learning progress will show up here once you open a chapter.';
+        if (resumeBtn) resumeBtn.style.display = 'none';
+      } else {
+        if (title) title.textContent = completed >= TOTAL_LESSONS ? 'All lessons completed! 🎉' : 'Welcome back!';
+        if (sub) sub.textContent = 'You have completed ' + pct + '% of the course. Keep going!';
+        if (resumeBtn && lastVisited) {
+          resumeBtn.style.display = 'inline-block';
+          resumeBtn.textContent = 'Resume: ' + trackName(lastVisited);
+          resumeBtn.onclick = () => openPage(lastVisited, true);
+        }
+      }
+
+      ['HTML', 'CSS', 'JavaScript'].forEach(track => {
+        const done = progress.filter(p => p.startsWith(track + '/')).length;
+        const total = TRACK_TOTALS[track];
+        const barPct = Math.round((done / total) * 100);
+        const key = track === 'JavaScript' ? 'js' : track.toLowerCase();
+        const label = document.getElementById(key + 'TrackLabel');
+        const bar = document.getElementById(key + 'TrackBar');
+        if (label) label.textContent = done + ' / ' + total + ' done';
+        if (bar) bar.style.width = barPct + '%';
+      });
+    }
+
+    function goHome() {
+      document.getElementById('landingSections').style.display = 'block';
+      document.querySelector('.page-bg').style.display = 'block';
+      document.getElementById('codeCanvas').style.display = 'none';
+      document.getElementById('frameWrap').classList.remove('show');
+      clearInterval(matrixInterval);
+      matrixInterval = null;
+      navList.classList.remove('mobile-open');
+    }
+
+    // Wire up all chapter links (they use data-target instead of inline onclick)
+    document.querySelectorAll('.dropdown a[data-target]').forEach(a => {
+      a.addEventListener('click', () => openPage(a.getAttribute('data-target'), true));
+    });
+
+    /* =========================================================
+       MODAL HELPERS
+    ========================================================= */
+    function openModal(id) {
+      document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      const firstInput = document.querySelector('#' + id + ' input');
+      if (firstInput) setTimeout(() => firstInput.focus(), 50);
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+      clearFormErrors(id);
+    }
+
+    document.querySelectorAll('[data-close]').forEach(el => {
+      el.addEventListener('click', () => closeModal(el.getAttribute('data-close')));
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal.active').forEach(m => closeModal(m.id));
+      }
+    });
+
+    document.querySelectorAll('.modal').forEach(m => {
+      m.addEventListener('click', (e) => { if (e.target === m) closeModal(m.id); });
+    });
+
+    document.getElementById('loginBtn').onclick = () => openModal('loginModal');
+    document.getElementById('goSignup').onclick = () => openModal('signupModal');
+    document.getElementById('goLogin').onclick = () => openModal('loginModal');
+
+    document.getElementById('userChip').addEventListener('click', (e) => {
+      e.stopPropagation();
+      document.getElementById('userMenu').classList.toggle('show');
+    });
+    window.addEventListener('click', () => document.getElementById('userMenu').classList.remove('show'));
+
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+
+    /* =========================================================
+       FORM VALIDATION HELPERS
+    ========================================================= */
+    function setFieldError(inputId, hasError) {
+      const errEl = document.getElementById(inputId + 'Err');
+      const inputEl = document.getElementById(inputId);
+      if (!errEl || !inputEl) return;
+      errEl.classList.toggle('show', hasError);
+      inputEl.style.borderColor = hasError ? '#dc2626' : '#ddd';
+    }
+
+    function clearFormErrors(modalId) {
+      document.querySelectorAll('#' + modalId + ' .field-error').forEach(e => e.classList.remove('show'));
+      document.querySelectorAll('#' + modalId + ' input').forEach(i => i.style.borderColor = '#ddd');
+      const msg = document.querySelector('#' + modalId + ' .form-msg');
+      if (msg) { msg.classList.remove('show', 'error', 'success'); msg.textContent = ''; }
+    }
+
+    function showFormMsg(msgId, text, type) {
+      const el = document.getElementById(msgId);
+      el.textContent = text;
+      el.className = 'form-msg show ' + type;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    /* =========================================================
+       LOGIN FORM SUBMIT
+    ========================================================= */
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+
+      const emailValid = emailRegex.test(email);
+      const passwordValid = password.length > 0;
+      setFieldError('loginEmail', !emailValid);
+      setFieldError('loginPassword', !passwordValid);
+      if (!emailValid || !passwordValid) return;
+
+      try {
+        const user = await login(email, password);
+        showFormMsg('loginMsg', 'Welcome back, ' + user.name + '!', 'success');
+        renderAuthUI();
+        setTimeout(() => {
+          closeModal('loginModal');
+          document.getElementById('loginForm').reset();
+          showToast('Logged in successfully.');
+          if (pendingTarget) {
+            const target = pendingTarget;
+            pendingTarget = null;
+            openPage(target, true);
+          }
+        }, 600);
+      } catch (err) {
+        showFormMsg('loginMsg', err.message, 'error');
+      }
+    });
+
+    /* =========================================================
+       SIGNUP FORM SUBMIT
+    ========================================================= */
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const confirm = document.getElementById('signupConfirm').value;
+
+      const nameValid = name.length >= 2;
+      const emailValid = emailRegex.test(email);
+      const passwordValid = password.length >= 6;
+      const confirmValid = password === confirm && confirm.length > 0;
+
+      setFieldError('signupName', !nameValid);
+      setFieldError('signupEmail', !emailValid);
+      setFieldError('signupPassword', !passwordValid);
+      setFieldError('signupConfirm', !confirmValid);
+
+      if (!nameValid || !emailValid || !passwordValid || !confirmValid) return;
+
+      try {
+        const user = await signup(name, email, password);
+        showFormMsg('signupMsg', 'Account created! Redirecting...', 'success');
+        renderAuthUI();
+        setTimeout(() => {
+          closeModal('signupModal');
+          document.getElementById('signupForm').reset();
+          showToast('Account created — you are now logged in.');
+          if (pendingTarget) {
+            const target = pendingTarget;
+            pendingTarget = null;
+            openPage(target, true);
+          }
+        }, 700);
+      } catch (err) {
+        showFormMsg('signupMsg', err.message, 'error');
+      }
+    });
+
+    /* =========================================================
+       THEME (persisted)
+    ========================================================= */
+    const themeBtn = document.getElementById("themeBtn");
+    function applyTheme(dark) {
+      document.body.classList.toggle("dark", dark);
+      themeBtn.textContent = dark ? "Light Mode" : "Dark Mode";
+      localStorage.setItem('trainee_theme', dark ? 'dark' : 'light');
+    }
+    themeBtn.onclick = () => applyTheme(!document.body.classList.contains('dark'));
+    applyTheme(localStorage.getItem('trainee_theme') === 'dark');
+
+    /* =========================================================
+       BACKGROUND SLIDER (original)
+    ========================================================= */
+    const images = ["img/p1.jpg", "img/tree-7619791_1920.jpg", "img/cat-8198720_1920.jpg"];
+    let i = 0;
+    const bg = document.querySelector('.page-bg');
+    bg.style.backgroundImage = `url(${images[0]})`;
+    setInterval(() => {
+      bg.classList.add('fade');
+      setTimeout(() => {
+        i = (i + 1) % images.length;
+        bg.style.backgroundImage = `url(${images[i]})`;
+        bg.classList.remove('fade');
+      }, 1000);
+    }, 6000);
+
+    window.addEventListener('click', e => {
+      if (!e.target.closest('nav ul li')) document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+    });
+
+    /* =========================================================
+       INIT
+    ========================================================= */
+    renderAuthUI();
+    renderDashboard();
+  </script>
+
+</body>
+
+</html>

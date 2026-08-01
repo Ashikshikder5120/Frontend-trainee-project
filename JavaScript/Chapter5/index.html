@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 5: Array | Ashik Shikder Lab</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@400;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="bg-mesh"></div>
+
+  <header class="main-header">
+    <div class="badge">Array Intelligence</div>
+    <h1>Array <span>Architect</span></h1>
+    <p>Advanced data manipulation from Recipes 5.1 to 5.21</p>
+  </header>
+
+  <main class="lab-grid">
+    <section class="lab-card">
+      <div class="card-info">
+        <span class="recipe-id">5.1-5.3</span>
+        <h3>Validation & Equality</h3>
+      </div>
+      <button onclick="checkArrayBasics()" class="btn-primary">Test Arrays</button>
+      <div id="out-basics" class="console">> Waiting...</div>
+    </section>
+
+    <section class="lab-card">
+      <div class="card-info">
+        <span class="recipe-id">5.4-5.6</span>
+        <h3>Spread & Destructure</h3>
+      </div>
+      <button onclick="handleSpread()" class="btn-primary">Clone & Split</button>
+      <div id="out-spread" class="console">> Waiting...</div>
+    </section>
+
+    <section class="lab-card">
+      <div class="card-info">
+        <span class="recipe-id">5.9</span>
+        <h3>Smart Filter</h3>
+      </div>
+      <input type="text" id="filterInput" value="Apple, Banana, Avocado, Berry" placeholder="Comma separated list">
+      <button onclick="runFilter()" class="btn-primary">Filter 'A' items</button>
+      <div id="out-filter" class="console">> Waiting...</div>
+    </section>
+
+    <section class="lab-card">
+      <div class="card-info">
+        <span class="recipe-id">5.11</span>
+        <h3>Unique Values</h3>
+      </div>
+      <input type="text" id="dupInput" value="1, 2, 2, 3, 4, 4, 5">
+      <button onclick="removeDups()" class="btn-primary">Clear Duplicates</button>
+      <div id="out-dups" class="console">> Waiting...</div>
+    </section>
+
+    <section class="lab-card">
+      <div class="card-info">
+        <span class="recipe-id">5.12</span>
+        <h3>Flatten (flat)</h3>
+      </div>
+      <div class="code-preview">[1, [2, [3, 4]]]</div>
+      <button onclick="flattenArray()" class="btn-primary">Flatten Deep</button>
+      <div id="out-flat" class="console">> Waiting...</div>
+    </section>
+
+    <section class="lab-card full-width">
+      <div class="card-info">
+        <span class="recipe-id">5.17-5.18</span>
+        <h3>Map, Sort & Reduce Pipeline</h3>
+      </div>
+      <button onclick="runPipeline()" class="btn-primary">Transform & Sum Data</button>
+      <div id="out-pipeline" class="console">> Waiting for pipeline execution...</div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

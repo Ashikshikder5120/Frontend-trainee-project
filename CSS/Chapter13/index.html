@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Cascading | Ashik Shikder</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Rule 1: Last declaration wins (Internal) */
+    h2 {
+      color: blue;
+    }
+
+    h2 {
+      color: orange;
+    }
+
+    /* Rule 4: !important (The King) */
+    .important-text {
+      color: purple !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="main-container">
+    <header>
+      <h1>Cascading Rules</h1>
+      <p>Student: <strong>Ashik Shikder</strong> | Azimpur, Dhaka</p>
+    </header>
+
+    <section class="card">
+      <h3>Rule 2: Specificity (ID > Class)</h3>
+      <p id="main-id" class="sub-class">
+        This text has an ID (#main-id) and a Class (.sub-class).
+        The ID style will win!
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>Rule 3: Inline Style Power</h3>
+      <p style="color: darkgreen;">
+        This text uses Inline Style. It's stronger than Internal or External CSS.
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>Rule 4: !important Declaration</h3>
+      <p class="important-text" style="color: red;">
+        Even with Inline Red, this text is Purple because of !important.
+      </p>
+    </section>
+
+    <section class="card">
+      <h3>3.5 Inheritance & "inherit" Keyword</h3>
+      <div class="parent-box">
+        <p>I inherit Red from my parent.</p>
+        <p class="green-text">I forced Green color.</p>
+        <p class="force-inherit">I was supposed to be Green, but I used "inherit".</p>
+      </div>
+    </section>
+  </div>
+
+</body>
+
+</html>

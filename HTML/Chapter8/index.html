@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHAPTER 8: HTML Advanced - Ashik Shikder</title>
+  <style>
+    :root {
+      --primary: #6366f1;
+      --bg: #f8fafc;
+      --block-color: #fca5a5;
+      --inline-color: #86efac;
+      --inline-block-color: #93c5fd;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg);
+      margin: 0;
+      padding: 40px 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      text-align: center;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      color: var(--primary);
+      border-left: 5px solid var(--primary);
+      padding-left: 10px;
+    }
+
+    /* Section .1 Style */
+    .data-uri-box {
+      background: #f1f5f9;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    /* Section .2, .3, .4 Visual Comparison */
+    .demo-box {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-weight: bold;
+      color: #1e293b;
+    }
+
+    .is-block {
+      display: block;
+      background-color: var(--block-color);
+      width: 100%;
+      /* Default 100% */
+      margin-bottom: 10px;
+    }
+
+    .is-inline {
+      display: inline;
+      background-color: var(--inline-color);
+      padding: 5px;
+      /* Note: padding-top/bottom doesn't push others away */
+    }
+
+    .is-inline-block {
+      display: inline-block;
+      background-color: var(--inline-block-color);
+      width: 150px;
+      height: 50px;
+      padding: 10px;
+      margin: 5px;
+      text-align: center;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Chapter 8: Advanced HTML & CSS Layout</h1>
+      <p>A Professional Lab Study by <strong>Ashik Shikder</strong></p>
+    </header>
+
+    <section>
+      <h2>.1 Data URIs</h2>
+      <div class="data-uri-box">
+        <p>Generate an inline download link without an external file:</p>
+        <a href="data:text/plain;charset=UTF-8,Hello Ashik! This is a Data URI test." download="ashik_test.txt"
+          style="color: var(--primary); font-weight: bold;">
+          Click to Download Text File (Data URI)
+        </a>
+      </div>
+    </section>
+
+    <section>
+      <h2>.2 Block Elements</h2>
+      <p>Block elements take up the <strong>full width</strong> available.</p>
+      <div class="demo-box is-block">I am a Block Element (100% width)</div>
+      <div class="demo-box is-block">I always start on a new line.</div>
+    </section>
+
+    <section>
+      <h2>.3 Inline Elements</h2>
+      <p>Inline elements only take as much <strong>width as necessary</strong>.</p>
+      <div class="demo-box is-inline">Inline 1</div>
+      <div class="demo-box is-inline">Inline 2</div>
+      <div class="demo-box is-inline">Inline 3</div>
+      <p><small>*Notice how they stay on the same line.</small></p>
+    </section>
+
+    <section>
+      <h2>.4 Inline-block Elements</h2>
+      <p>Inline-block allows <strong>width/height</strong> but keeps elements on the <strong>same line</strong>.</p>
+      <div class="demo-box is-inline-block">Box 1 (150px)</div>
+      <div class="demo-box is-inline-block">Box 2 (150px)</div>
+      <div class="demo-box is-inline-block">Box 3 (150px)</div>
+    </section>
+
+    <footer>
+      <address>
+        Developed by: Ashik Shikder | Dhaka, Bangladesh<br>
+        Study Reference: Ashik Shikder Series
+      </address>
+    </footer>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CHAPTER 4: Semantic HTML - Ashik Shikder</title>
+  <style>
+    /* General Setup */
+    :root {
+      --brand-color: #0f172a;
+      --accent: #3b82f6;
+      --bg-gray: #f8fafc;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      margin: 0;
+      background-color: var(--bg-gray);
+      color: #334155;
+      line-height: 1.6;
+    }
+
+    /* .2 Semantic Layout Elements - CSS */
+    header {
+      background-color: var(--brand-color);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    nav {
+      background: #fff;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 30px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    section {
+      margin-bottom: 40px;
+      padding: 20px;
+      border-left: 4px solid var(--accent);
+      background: #f1f5f9;
+    }
+
+    article {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* .1.1 Blockquote Styling */
+    blockquote {
+      background: #e0f2fe;
+      border-left: 10px solid var(--accent);
+      margin: 1.5em 10px;
+      padding: 1em 10px;
+      font-style: italic;
+    }
+
+    /* .1.4 Figure & Figcaption */
+    figure {
+      text-align: center;
+      border: 1px solid #ddd;
+      padding: 10px;
+      background: #fff;
+    }
+
+    figcaption {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-top: 8px;
+    }
+
+    footer {
+      background: var(--brand-color);
+      color: #94a3b8;
+      padding: 40px 20px;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    /* Interaction Elements */
+    details {
+      background: #fff;
+      padding: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    summary {
+      font-weight: bold;
+      color: var(--accent);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Semantic Web Design</h1>
+    <p>A Practical Study by <strong>Ashik Shikder</strong></p>
+  </header>
+
+  <nav>
+    <a href="#quote">Quotes</a>
+    <a href="#layout">Layout</a>
+    <a href="#formatting">Formatting</a>
+  </nav>
+
+  <main>
+
+    <section id="quote">
+      <h2>.1 Semantic Elements</h2>
+
+      <article>
+        <h3>.1.1 blockquote & q</h3>
+        <p>Here is a quote from Wikipedia:</p>
+        <blockquote cite="https://en.wikipedia.org/wiki/HTML">
+          The HyperText Markup Language or HTML is the standard markup language for documents designed to be displayed
+          in a web browser.
+        </blockquote>
+        <p>Wikipedia's goal is to: <q>Provide a free encyclopedia that anyone can edit.</q></p>
+      </article>
+
+      <br>
+
+      <article>
+        <h3>.1.3 details & summary (Interactive)</h3>
+        <details>
+          <summary>What is HTML?</summary>
+          <p>HTML is the standard markup language for Web pages.</p>
+        </details>
+      </article>
+    </section>
+
+    <section>
+      <h3>.1.4 figure & figcaption</h3>
+      <figure>
+        <img src="https://via.placeholder.com/300x150/3b82f6/ffffff?text=Semantic+Image" alt="Sample Image"
+          style="max-width:100%">
+        <figcaption>Fig.1 - Demonstrating semantic image captioning by Ashik Shikder.</figcaption>
+      </figure>
+    </section>
+
+    <section id="formatting">
+      <h2>.3 Semantic Formatting Elements</h2>
+      <article>
+        <p><strong>.3.1 strong:</strong> Using <strong>strong</strong> instead of bold for critical content.</p>
+        <p><em>.3.2 em:</em> Using <em>emphasize</em> to stress a piece of text.</p>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    <address>
+      <p>Road No. 10, Azimpur, Dhaka - 1205, Bangladesh</p>
+      <p>
+        Phone: <a href="tel:+880123456789" style="color:white">+880 1234-567890</a> |
+        Email: <a href="mailto:ashik@yourdomain.com" style="color:white">ashik@shikder.com</a>
+      </p>
+    </address>
+    <hr style="border: 0; border-top: 1px solid #334155; margin: 20px 0;">
+    <p>Copyright &copy; 2026 by <strong>Ashik Shikder</strong> | All Rights Reserved</p>
+  </footer>
+</body>
+
+</html>

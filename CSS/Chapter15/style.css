@@ -1,0 +1,80 @@
+/* Standard Setup from previous chapters */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #f0f2f5;
+  font-size: 1.6rem;
+  padding: 40px 20px;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.color-card {
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+h3 {
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+}
+
+/* 5.1 Color Names Example */
+.name-bg {
+  background-color: lightsteelblue;
+  color: darkblue;
+}
+
+/* 5.2 HEX Color Example (#rrggbb) */
+.hex-bg {
+  background-color: #38bdf8;
+  color: #ffffff;
+}
+
+/* 5.3 RGBA Example (Red, Green, Blue, Alpha) */
+/* Alpha 0.8 makes it 80% opaque */
+.rgb-bg {
+  background-color: rgba(74, 222, 128, 0.8);
+  color: rgb(20, 83, 45);
+}
+
+/* 5.4 Gray Color Example (Identical R, G, B) */
+.gray-bg {
+  background-color: #333333;
+  color: #eeeeee;
+}
+
+footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #777;
+}

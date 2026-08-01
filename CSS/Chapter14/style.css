@@ -1,0 +1,113 @@
+/* 4.1.2 Best Practice: Set all elements to border-box */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%; /* 1rem = 10px */
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  font-size: 1.6rem;
+  line-height: 1.6;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  background: #ffffff;
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+h2 {
+  color: #2563eb;
+  margin-bottom: 20px;
+  font-size: 2.2rem;
+}
+
+/* 4.1 Box Sizing Logic */
+.box {
+  width: 300px;
+  height: 120px;
+  padding: 20px;
+  border: 10px solid #cbd5e1;
+  margin-bottom: 20px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Actual Width will be 360px (300+40+20) */
+.content-box {
+  box-sizing: content-box;
+  background-color: #ef4444;
+}
+
+/* Actual Width will be exactly 300px */
+.border-box {
+  box-sizing: border-box;
+  background-color: #10b981;
+}
+
+/* 4.2 & 4.5 Visual Guide */
+.parent-element {
+  background-color: #e2e8f0;
+  border: 2px dashed #64748b;
+}
+
+.child-element {
+  background-color: #6366f1;
+  color: white;
+  padding: 40px; /* Space inside the border */
+  margin: 40px; /* Space outside the border */
+  border: 5px solid #1e293b;
+}
+
+/* 4.4.2 Border Radius Shapes */
+.shape {
+  display: inline-flex;
+  width: 120px;
+  height: 120px;
+  background-color: #f59e0b;
+  margin-right: 20px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+}
+
+.circle {
+  border-radius: 50%;
+}
+.rounded {
+  border-radius: 15px;
+}
+
+footer {
+  text-align: center;
+  color: #94a3b8;
+  margin-top: 50px;
+}

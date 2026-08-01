@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Selectors | Ashik Shikder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <h1>CSS Selectors Lab</h1>
+      <p>Student: <strong>Ashik Shikder</strong> | Azimpur, Dhaka</p>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <h3>ID & Class Selectors</h3>
+        <p id="unique-text">This is an ID selector (#unique-text)</p>
+        <p class="highlight">This is a class selector (.highlight)</p>
+        <p class="highlight bold-text">Multiple classes applied</p>
+      </section>
+
+      <section class="card">
+        <h3>Pseudo-classes</h3>
+        <button class="btn">Hover & Click Me</button>
+        <div class="input-group">
+          <input type="text" placeholder="Required input" required>
+          <input type="number" min="1" max="5" value="10" placeholder="Out of range">
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Child Selectors</h3>
+        <ul class="selector-list">
+          <li>First Child (:first-child)</li>
+          <li>Nth Child 2 (:nth-child(2))</li>
+          <li>Last Child (:last-child)</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h3>Pseudo-elements</h3>
+        <p class="drop-cap">This paragraph uses ::first-letter to create a drop cap effect for professional layout.</p>
+        <p class="required-label">Email Address</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Ashik Shikder Lab Project</p>
+  </footer>
+  </div>
+
+</body>
+
+</html>

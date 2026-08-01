@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4: Date & Time Lab | Ashik Shikder</title>
+  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="bg-gradient"></div>
+
+  <header class="hero-section">
+    <div class="badge">Time</div>
+    <h1>Date & <span>Temporal</span> Laboratory</h1>
+    <p>Subtitle: Managing timestamps, calculations, and localization</p>
+  </header>
+
+  <main class="lab-container">
+
+    <section class="glass-card">
+      <div class="card-head">
+        <span class="recipe-no">4.1</span>
+        <h3>Real-time Extraction</h3>
+      </div>
+      <p><small>Extracting year, month (0-11), and day from current system clock.</small></p>
+      <button onclick="recipe41()" class="primary-btn">Fetch Current Time</button>
+      <div id="out41" class="console-box">> Clock idle...</div>
+    </section>
+
+    <section class="glass-card">
+      <div class="card-head">
+        <span class="recipe-no">4.3</span>
+        <h3>Date Manipulation</h3>
+      </div>
+      <p><small>Add or subtract days (e.g., 21 days for three weeks).</small></p>
+      <input type="number" id="daysToAdd" value="21" placeholder="Days to add/sub">
+      <button onclick="recipe43()" class="primary-btn">Adjust Date</button>
+      <div id="out43" class="console-box">> Waiting for input...</div>
+    </section>
+
+    <section class="glass-card">
+      <div class="card-head">
+        <span class="recipe-no">4.5</span>
+        <h3>Time Elapsed Calculation</h3>
+      </div>
+      <input type="date" id="dateStart" value="2021-02-01">
+      <input type="date" id="dateEnd" value="2021-11-01">
+      <button onclick="recipe45()" class="primary-btn">Calculate Difference</button>
+      <div id="out45" class="console-box">> Result in days...</div>
+    </section>
+
+    <section class="glass-card full-span">
+      <div class="card-head">
+        <span class="recipe-no">4.6</span>
+        <h3>Intl.DateTimeFormat (Localization)</h3>
+      </div>
+      <div class="intl-grid">
+        <div class="intl-controls">
+          <input type="datetime-local" id="intlInput">
+          <select id="localeSelect">
+            <option value="en-US">USA (en-US)</option>
+            <option value="en-GB">UK (en-GB)</option>
+            <option value="ja-JP">Japan (ja-JP)</option>
+            <option value="de-DE">Germany (de-DE)</option>
+            <option value="bn-BD">Bangladesh (bn-BD)</option>
+          </select>
+          <button onclick="recipe46()" class="primary-btn">Format Locale</button>
+        </div>
+        <div id="out46" class="console-box result-large">> Localized output will appear here...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

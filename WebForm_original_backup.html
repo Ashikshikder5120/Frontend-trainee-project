@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Frontend Trainee Project - Ashik Shikder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto+Mono&display=swap"
+    rel="stylesheet">
+  <style>
+    /* basic reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+      background: #000;
+    }
+
+    /* dark mode styles */
+    body.dark {
+      background-color: #121212;
+      color: #ffffff;
+    }
+
+    body.dark .card,
+    body.dark .info-card {
+      background: rgba(30, 30, 30, 0.95);
+      color: #fff;
+    }
+
+    body.dark .dropdown {
+      background: #222;
+    }
+
+    body.dark .dropdown a {
+      color: #eee;
+      border-bottom: 1px solid #333;
+    }
+
+    /* full page background slider */
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: -2;
+      filter: brightness(0.6);
+      transition: opacity 1.5s ease-in-out;
+      opacity: 1;
+    }
+
+    .page-bg.fade {
+      opacity: 0;
+    }
+
+    /* coding animation canvas */
+    #codeCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      display: none;
+      background: #000;
+    }
+
+    /* navbar */
+    nav {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 25px;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    nav ul li a:hover {
+      color: #22c55e;
+    }
+
+    /* colorful dropdowns with scrolling */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 35px;
+      left: 0;
+      background: #fff;
+      min-width: 250px;
+      max-height: 600px;
+      overflow-y: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      z-index: 2000;
+      padding: 5px 0;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 12px 18px;
+      color: #333;
+      text-decoration: none;
+      font-size: 14px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: all 0.3s ease;
+    }
+
+    /* dropdown theme colors */
+    #htmlMenu {
+      border-top: 5px solid #e34c26;
+    }
+
+    #htmlMenu a:hover {
+      background: #fef2f0;
+      color: #e34c26;
+      padding-left: 25px;
+    }
+
+    #cssMenu {
+      border-top: 5px solid #264de4;
+    }
+
+    #cssMenu a:hover {
+      background: #f0f3ff;
+      color: #264de4;
+      padding-left: 25px;
+    }
+
+    #jsMenu {
+      border-top: 5px solid #f7df1e;
+    }
+
+    #jsMenu a:hover {
+      background: #fffdf0;
+      color: #856404;
+      padding-left: 25px;
+    }
+
+    .show {
+      display: block;
+    }
+
+    /* action buttons */
+    .actions a {
+      background: #22c55e;
+      padding: 8px 18px;
+      border-radius: 6px;
+      margin-left: 8px;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    /* HUGE HERO TEXT */
+    .hero {
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .hero-text h1 {
+      font-size: 85px;
+      /* Huge text */
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      line-height: 1;
+      text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.7);
+    }
+
+    .hero-text p {
+      font-size: 24px;
+      margin: 20px 0 30px;
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .hero-text button {
+      padding: 16px 45px;
+      background: #22c55e;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      color: #fff;
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    /* Iframe for Content */
+    #contentFrame {
+      width: 95%;
+      height: 85vh;
+      border: 3px solid #22c55e;
+      margin: 20px auto;
+      display: none;
+      background: #fff;
+      border-radius: 15px;
+    }
+
+    /* sections */
+    .section {
+      padding: 60px 10%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .card,
+    .info-card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 20px;
+      color: #333;
+    }
+
+    .video {
+      padding: 60px 10%;
+      text-align: center;
+    }
+
+    .video iframe {
+      width: 100%;
+      max-width: 800px;
+      height: 450px;
+      border-radius: 20px;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.85);
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+
+    /* modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 3000;
+    }
+
+    .modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #fff;
+      padding: 40px;
+      border-radius: 20px;
+      width: 380px;
+      position: relative;
+      text-align: center;
+      color: #333;
+    }
+
+    .modal-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+
+    .modal-box button {
+      width: 100%;
+      padding: 12px;
+      background: #1e90ff;
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+
+  <canvas id="codeCanvas"></canvas>
+  <div class="page-bg"></div>
+
+  <div class="content" id="mainWrapper">
+    <nav>
+      <ul>
+        <li><a href="javascript:void(0)" onclick="goHome()">Home</a></li>
+        <li>
+          <a onclick="toggleDropdown('htmlMenu')">HTML ▾</a>
+          <div class="dropdown" id="htmlMenu">
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter1/index.html')">📑 HTML Basics</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter2/index.html')">🏗️ HTML Elements</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter3/index.html')">🎨 HTML Styles</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter4/index.html')">🏛️ HTML Semantic</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter5/index.html')">📝 HTML Web Forms</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter6/index.html')">🎬 HTML Multimedia</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter7/index.html')">📊 HTML Graphics</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter8/index.html')">🚀 HTML Advanced</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter9/index.html')">⚡ HTML Events</a>
+            <a href="javascript:void(0)" onclick="openPage('HTML/Chapter10/index.html')">🔌 HTML APIs</a>
+          </div>
+        </li>
+        <li>
+          <a onclick="toggleDropdown('cssMenu')">CSS ▾</a>
+          <div class="dropdown" id="cssMenu">
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter11/index.html')">🖌️ CSS Basics</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter12/index.html')">🎯 CSS Selectors</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter13/index.html')">🌊 CSS Cascading</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter14/index.html')">📦 CSS Box Model</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter15/index.html')">🌈 CSS Colors</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter16/index.html')">✍️ CSS Text</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter17/index.html')">🖼️ CSS Backgrounds</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter18/index.html')">📱 CSS Display</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter19/index.html')">📏 CSS Layout</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter20/index.html')">🎞️ Transitions & Animations</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter21/index.html')">💎 Advanced CSS</a>
+            <a href="javascript:void(0)" onclick="openPage('CSS/Chapter22/index.html')">💻 Responsive CSS</a>
+          </div>
+        </li>
+        <li>
+          <a onclick="toggleDropdown('jsMenu')">JavaScript ▾</a>
+          <div class="dropdown" id="jsMenu">
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter1/index3.html')">🚀 01. Development
+              Environment</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter2/index.html')">📜 02. Strings & Regex</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter3/index.html')">🔢 03. Numbers & Math</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter4/index.html')">📅 04. Dates & Time</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter5/index.html')">📦 05. Arrays &
+              Collections</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter6/index.html')">⚙️ 06. Functions &
+              Scope</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter7/index.html')">💎 07. Objects &
+              Properties</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter8/index.html')">🏛️ 08. Classes & OOP</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter9/index.html')">⏳ 09. Async
+              Programming</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter10/index.html')">🛠️ 10. Errors &
+              Testing</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter11/index.html')">🌐 11. Browser Tools</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter12/index.html')">📄 12. Working With
+              HTML</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter13/index.html')">📡 13. Fetching Remote
+              Data</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter14/index.html')">💾 14. Data
+              Persistence</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter15/index.html')">🎬 15. Working with
+              Media</a>
+            <a href="javascript:void(0)" onclick="openPage('JavaScript/Chapter16/index.html')">💻 16. Web
+              Applications</a>
+          </div>
+        </li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="actions">
+        <a id="loginBtn">Login</a>
+        <a id="themeBtn">Dark Mode</a>
+      </div>
+    </nav>
+
+    <div id="landingSections">
+      <section class="hero">
+        <div class="hero-text">
+          <h1>Welcome to the<br>Trainee Project</h1>
+          <p>Master the art of Web Development with Ashik Shikder</p>
+          <button>Start Learning Now</button>
+        </div>
+      </section>
+
+      <section class="features section">
+        <div class="card">
+          <h3>HTML5</h3>
+          <p>Build the skeleton of the web with modern semantic tags.</p>
+        </div>
+        <div class="card">
+          <h3>CSS3</h3>
+          <p>Design stunning, responsive layouts with Flexbox and Grid.</p>
+        </div>
+        <div class="card">
+          <h3>JavaScript</h3>
+          <p>Bring websites to life with powerful logic and APIs.</p>
+        </div>
+        <div class="card">
+          <h3>Responsive</h3>
+          <p>Optimized for every screen size from Mobile to Desktop.</p>
+        </div>
+      </section>
+
+      <section class="info section">
+        <div class="info-card">
+          <h3>Student Profile</h3>
+          <p><strong>Name:</strong> Ashik Shikder</p>
+          <p><strong>Trainee ID:</strong> 1292756</p>
+          <p><strong>Batch:</strong> CS/SCSL-M/68/01</p>
+        </div>
+        <div class="info-card">
+          <h3>Submission Details</h3>
+          <p><strong>To:</strong> Syed Zahidul Hassan</p>
+          <p><strong>Organization:</strong> Show & Tell Consulting Ltd</p>
+          <p><strong>Date:</strong> 21 Jan 2026</p>
+        </div>
+      </section>
+
+      <section class="video">
+        <h2>Tutorial Highlight</h2>
+        <iframe src="https://www.youtube.com/embed/dD2EISBDjWM" allowfullscreen></iframe>
+      </section>
+
+      <footer>
+        <p>© 2026 Trainee Project | Crafted with ❤️ by Ashik Shikder</p>
+      </footer>
+    </div>
+
+    <center><iframe id="contentFrame"></iframe></center>
+  </div>
+
+  <div class="modal" id="loginModal">
+    <div class="modal-box">
+      <span class="close" id="closeBtn">&times;</span>
+      <h3>Member Login</h3>
+      <input type="text" placeholder="Username / Email">
+      <input type="password" placeholder="Password">
+      <button>Sign In</button>
+    </div>
+  </div>
+
+  <script>
+    // Matrix Coding Animation
+    const canvas = document.getElementById('codeCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    const chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*";
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#22c55e";
+      ctx.font = fontSize + "px Courier New";
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    let matrixInterval;
+
+    // Toggle Dropdowns
+    function toggleDropdown(id) {
+      const menu = document.getElementById(id);
+      const isOpen = menu.classList.contains('show');
+      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+      if (!isOpen) menu.classList.add('show');
+    }
+
+    // Open Lesson Pages
+    function openPage(url) {
+      document.getElementById('landingSections').style.display = 'none';
+      document.querySelector('.page-bg').style.display = 'none';
+      document.getElementById('codeCanvas').style.display = 'block';
+      const frame = document.getElementById('contentFrame');
+      frame.style.display = 'block';
+      frame.src = url;
+      if (!matrixInterval) matrixInterval = setInterval(drawMatrix, 50);
+      document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show'));
+    }
+
+    // Back to Home
+    function goHome() {
+      document.getElementById('landingSections').style.display = 'block';
+      document.querySelector('.page-bg').style.display = 'block';
+      document.getElementById('codeCanvas').style.display = 'none';
+      document.getElementById('contentFrame').style.display = 'none';
+      clearInterval(matrixInterval);
+      matrixInterval = null;
+    }
+
+    // Original Login Modal Logic
+    const modal = document.getElementById("loginModal");
+    document.getElementById("loginBtn").onclick = (e) => { e.stopPropagation(); modal.classList.add("active"); }
+    document.getElementById("closeBtn").onclick = () => modal.classList.remove("active");
+
+    // Original Dark Mode Logic
+    const themeBtn = document.getElementById("themeBtn");
+    themeBtn.onclick = () => {
+      document.body.classList.toggle("dark");
+      themeBtn.textContent = document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+    };
+
+    // Original Background Slider Logic
+    const images = ["img/p1.jpg", "img/tree-7619791_1920.jpg", "img/cat-8198720_1920.jpg"];
+    let i = 0;
+    const bg = document.querySelector('.page-bg');
+    bg.style.backgroundImage = `url(${images[0]})`;
+    setInterval(() => {
+      bg.classList.add('fade');
+      setTimeout(() => {
+        i = (i + 1) % images.length;
+        bg.style.backgroundImage = `url(${images[i]})`;
+        bg.classList.remove('fade');
+      }, 1000);
+    }, 6000);
+
+    window.onclick = e => { if (!e.target.closest('nav ul li')) document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('show')); }
+  </script>
+
+</body>
+
+</html>

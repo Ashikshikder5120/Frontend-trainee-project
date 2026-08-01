@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Dashboard | Ashik Shikder</title>
+  <style>
+    :root {
+      --primary-bg: #0f172a;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --accent: #6366f1;
+      --text-main: #1e293b;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: radial-gradient(circle at top right, #1e293b, #0f172a);
+      color: white;
+      margin: 0;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .dashboard-container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      background: linear-gradient(to right, #818cf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .author-info {
+      font-size: 1.1rem;
+      color: #94a3b8;
+      margin-top: 10px;
+    }
+
+    /* Dashboard Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+    }
+
+    /* Glass Card Effect */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 25px;
+      color: var(--text-main);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: var(--accent);
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 10px;
+      font-size: 1.2rem;
+    }
+
+    /* Elements Styling */
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    /* Mouse Event Box */
+    .interactive-box {
+      height: 100px;
+      background: #f1f5f9;
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: crosshair;
+      transition: all 0.3s ease;
+      font-weight: bold;
+    }
+
+    /* Output Logger */
+    #log-screen {
+      background: #1e293b;
+      color: #38bdf8;
+      padding: 20px;
+      border-radius: 15px;
+      margin-top: 40px;
+      font-family: 'Courier New', Courier, monospace;
+      border: 1px solid #334155;
+      min-height: 50px;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 60px;
+      color: #64748b;
+    }
+  </style>
+</head>
+
+<body onload="log('System: Page Loaded Successfully!')">
+
+  <div class="dashboard-container">
+    <header>
+      <h1>HTML5 Events</h1>
+      <div class="author-info">Student ID: 2026-X | <strong>Ashik Shikder</strong> | Dhaka, Azimpur</div>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h3>.2 Form & Input Events</h3>
+        <label>Focus/Blur Test:</label>
+        <input type="text" placeholder="Click me..." onfocus="this.style.borderColor='#6366f1'"
+          onblur="this.style.borderColor='#e2e8f0'">
+
+        <label>Onchange Test:</label>
+        <select onchange="log('Selection Changed: ' + this.value)">
+          <option value="Dhaka">Dhaka</option>
+          <option value="Chittagong">Chittagong</option>
+          <option value="Sylhet">Sylhet</option>
+        </select>
+
+        <label>Real-time Input (.2.4):</label>
+        <input type="text" placeholder="Type something..." oninput="log('Input: ' + this.value)">
+      </div>
+
+      <div class="card">
+        <h3>.3 Keyboard & .5 Clipboard</h3>
+        <label>Auto-Uppercase (.3.2):</label>
+        <input type="text" id="key-test" placeholder="Type here..." onkeyup="this.value = this.value.toUpperCase()">
+
+        <label>Clipboard Shield (.5):</label>
+        <input type="text" value="Try to COPY/CUT this" oncopy="log('ALERT: Content Copied!')"
+          oncut="log('ALERT: Content Cut!')" onpaste="log('ALERT: Content Pasted!')">
+      </div>
+
+      <div class="card">
+        <h3>.4 Mouse Interaction</h3>
+        <button class="btn btn-primary" onclick="log('Button Clicked!')">Click (.4.1)</button>
+        <button class="btn btn-primary" ondblclick="log('Double Clicked!')" style="background: #8b5cf6;">Double Click
+          (.4.2)</button>
+
+        <div class="interactive-box"
+          onmouseover="this.style.background='#6366f1'; this.style.color='white'; log('Mouse Over Box')"
+          onmouseout="this.style.background='#f1f5f9'; this.style.color='#1e293b'; log('Mouse Out Box')">
+          Hover Me (.4.5)
+        </div>
+      </div>
+    </div>
+
+    <div id="log-screen">>> Interactive Log Ready...</div>
+
+    <footer>
+      <address>
+        Developed by <strong>Ashik Shikder</strong><br>
+        Azimpur, Dhaka-1205 | Neo D. Truman Study Series
+      </address>
+    </footer>
+  </div>
+
+  <script>
+    function log(message) {
+      const screen = document.getElementById('log-screen');
+      screen.innerHTML = ">> " + message;
+    }
+  </script>
+
+</body>
+
+</html>

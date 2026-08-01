@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 3: Numbers | Ashik Shikder</title>
+  <link rel="stylesheet" href="style.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="background-glow"></div>
+
+  <header class="hero">
+    <div class="badge">Chapter 3: Numbers</div>
+    <h1>Numeric <span>Intelligence</span></h1>
+    <p>Mastering precision, cryptography, and big integers in JavaScript</p>
+  </header>
+
+  <main class="lab-grid">
+
+    <section class="glass-card">
+      <div class="card-header">
+        <span class="recipe-tag">3.1</span>
+        <h3>Random Integer</h3>
+      </div>
+      <div class="input-group">
+        <input type="number" id="minRange" value="1" placeholder="Min">
+        <input type="number" id="maxRange" value="100" placeholder="Max">
+      </div>
+      <button onclick="recipe31()" class="glow-btn">Generate</button>
+      <div id="out31" class="console">> Output ready...</div>
+    </section>
+
+    <section class="glass-card">
+      <div class="card-header">
+        <span class="recipe-tag">3.3</span>
+        <h3>Precision Rounding</h3>
+      </div>
+      <input type="number" id="numToRound" value="124.793" step="0.001">
+      <input type="number" id="decimalPlaces" value="2" placeholder="Decimals">
+      <button onclick="recipe33()" class="glow-btn">Execute Round</button>
+      <div id="out33" class="console">> Ready...</div>
+    </section>
+
+    <section class="glass-card">
+      <div class="card-header">
+        <span class="recipe-tag">3.5</span>
+        <h3>String Parser</h3>
+      </div>
+      <input type="text" id="strInput" value="100.50 USD">
+      <div class="button-row">
+        <button onclick="recipe35('number')" class="sub-btn">Number()</button>
+        <button onclick="recipe35('float')" class="sub-btn">parseFloat()</button>
+      </div>
+      <div id="out35" class="console">> Parsing result...</div>
+    </section>
+
+    <section class="glass-card full-width">
+      <div class="card-header">
+        <span class="recipe-tag">3.9</span>
+        <h3>BigInt Precision (Beyond 2^53 - 1)</h3>
+      </div>
+      <div class="bigint-demo">
+        <button onclick="recipe39()" class="glow-btn">Run Stress Test</button>
+        <div id="out39" class="console code-font">> Logic awaiting execution...</div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

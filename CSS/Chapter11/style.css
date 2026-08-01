@@ -1,0 +1,124 @@
+/* 1.2 CSS Comment: Root setup */
+html {
+  /* 1rem = 10px calculation based on 62.5% */
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  /* Font size updated to 1.8rem (18px) for better readability */
+  font-size: 1.8rem;
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f1f5f9;
+}
+
+.glass-container {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 95%;
+  max-width: 100rem; /* 1000px */
+  border-radius: 3rem;
+  padding: 5rem;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+}
+
+/* Header Section */
+.main-header {
+  text-align: center;
+  border-bottom: 2px solid rgba(56, 189, 248, 0.3);
+  padding-bottom: 3rem;
+  margin-bottom: 4rem;
+}
+
+.logo-area h1 {
+  font-size: 5rem; /* Large & Bold Title */
+  margin: 0;
+  color: #fff;
+}
+
+.logo-area span {
+  color: #38bdf8;
+}
+
+.author-badge {
+  display: inline-block;
+  background: #38bdf8;
+  color: #0f172a;
+  padding: 1rem 2.5rem;
+  border-radius: 5rem;
+  font-weight: 800;
+  font-size: 1.6rem; /* 16px */
+  margin-top: 1.5rem;
+}
+
+/* Content Area */
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+  gap: 3rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.07);
+  padding: 3rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+h3 {
+  color: #38bdf8;
+  font-size: 2.4rem; /* Sub-headings (24px) */
+  margin-bottom: 1.5rem;
+}
+
+p {
+  line-height: 1.8;
+  font-size: 1.8rem; /* Main text (18px) */
+  color: #cbd5e1;
+}
+
+/* Units Box Example */
+.unit-box {
+  padding: 2rem;
+  margin: 1.5rem 0;
+  border-radius: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.rem-box {
+  background: #0ea5e9;
+  width: 25rem; /* 250px */
+}
+
+.px-box {
+  background: #64748b;
+  width: 250px;
+}
+
+/* 1.4 Shorthand Box */
+.shorthand-display {
+  border-style: solid;
+  border-color: #4ade80;
+  border-width: 0.5rem 2.5rem 0.5rem 0.8rem; /* Distinct shorthand widths */
+  padding: 2.5rem;
+  font-size: 2rem;
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+}
+
+footer {
+  margin-top: 5rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 1.6rem;
+}

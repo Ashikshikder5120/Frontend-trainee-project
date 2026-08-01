@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 15: Creative Media Studio</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;600&family=JetBrains+Mono&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #050505;
+      --card-glass: rgba(255, 255, 255, 0.03);
+      --neon-pink: #ff007a;
+      --neon-blue: #00d4ff;
+      --neon-green: #39ff14;
+      --text-silver: #e0e0e0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-deep);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255, 0, 122, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(0, 212, 255, 0.1) 0%, transparent 40%);
+      color: var(--text-silver);
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 3.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: -2px;
+      margin: 0;
+      background: linear-gradient(to right, var(--neon-pink), var(--neon-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 30px;
+    }
+
+    .card {
+      background: var(--card-glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: scale(1.02);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      color: var(--neon-blue);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* SVG & Canvas Styling */
+    svg,
+    canvas {
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 20px;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #333;
+    }
+
+    /* Buttons Styling */
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 24px;
+      border-radius: 14px;
+      border: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .btn-play {
+      background: var(--neon-green);
+      color: #000;
+    }
+
+    .btn-pause {
+      background: var(--neon-pink);
+      color: #fff;
+    }
+
+    .btn-stop {
+      background: #444;
+      color: #fff;
+    }
+
+    button:hover:not(:disabled) {
+      filter: brightness(1.2);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* Video Styling */
+    video {
+      width: 100%;
+      border-radius: 20px;
+      border: 2px solid #333;
+    }
+
+    .feedback-badge {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 16px;
+      background: rgba(0, 212, 255, 0.1);
+      color: var(--neon-blue);
+      border-radius: 50px;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    /* Log Panel */
+    .log-panel {
+      margin-top: 40px;
+      background: #000;
+      border-radius: 24px;
+      padding: 25px;
+      border: 1px solid #222;
+    }
+
+    .log-content {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--neon-green);
+      height: 150px;
+      overflow-y: auto;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .home-link {
+      display: block;
+      text-align: center;
+      margin-top: 40px;
+      color: #666;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .home-link:hover {
+      color: var(--neon-pink);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <h1>📐 Media Studio</h1>
+      <p style="color: #666;">Interactive SVG, D3 Charts & Canvas Engineering</p>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <h2>🎨 Hybrid Graphics (SVG/Canvas)</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 15px; color: #888;">Intermixing SVG shapes with Canvas elements.</p>
+        <svg id="svgelem" width="100%" viewBox="0 0 600 400">
+          <foreignObject width="300" height="150" x="20" y="20">
+            <canvas id="thisCanvas" width="300" height="150" style="background:transparent"></canvas>
+          </foreignObject>
+
+          <rect id="square" x="50" y="200" width="150" height="150" fill="var(--neon-pink)" rx="20"
+            style="cursor:pointer" />
+          <circle id="redcircle" cx="450" cy="200" r="80" fill="var(--neon-blue)" style="cursor:pointer" stroke="#fff"
+            stroke-width="2" />
+        </svg>
+        <p style="font-size: 0.8rem; color: #555; margin-top: 10px;">Click shapes to trigger DOM manipulations.</p>
+      </div>
+
+      <div class="card">
+        <h2>📊 D3 Logic Engine</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 15px; color: #888;">Procedural bar chart generation via D3.js v7.
+        </p>
+        <div id="chart"></div>
+      </div>
+
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2>🎬 Media Player API</h2>
+        <div style="display: flex; gap: 30px; flex-wrap: wrap; align-items: start;">
+          <div style="flex: 1; min-width: 300px;">
+            <video id="meadow">
+              <source src="video/10) _ Movieclips.mp4" type="video/mp4">
+              Your browser doesn't support HTML5 video.
+            </video>
+          </div>
+          <div style="flex: 1;">
+            <p style="margin-top:0">Control high-level media playback states via JavaScript event listeners.</p>
+            <div class="feedback-badge" id="feedback">Status: Idle</div>
+            <div class="controls">
+              <button id="start" class="btn-play">▶ Play</button>
+              <button id="pause" class="btn-pause" disabled>⏸ Pause</button>
+              <button id="stop" class="btn-stop" disabled>⏹ Stop</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="log-panel">
+      <h2 style="font-size: 1rem; color: var(--neon-green);">📟 Console Feedback</h2>
+      <div id="log" class="log-content">> Studio ready for interaction...</div>
+    </div>
+
+    <a href="../../project.html" class="home-link">🏠 Return to Project Home</a>
+  </div>
+
+
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script>
+    function logEvent(message) {
+      const log = document.getElementById("log");
+      log.textContent += `\n[${new Date().toLocaleTimeString()}] ${message}`;
+      log.scrollTop = log.scrollHeight;
+    }
+
+    // 15.1 SVG Logic
+    const square = document.getElementById("square");
+    square.onclick = () => {
+      const current = square.getAttribute("fill");
+      square.setAttribute("fill", current === "#ff007a" ? "#39ff14" : "#ff007a");
+      logEvent("SVG Square: Color Toggled");
+    };
+
+    const circle = document.getElementById("redcircle");
+    circle.onclick = () => {
+      const current = circle.getAttribute("fill");
+      circle.setAttribute("fill", current === "#00d4ff" ? "#ff007a" : "#00d4ff");
+      logEvent("SVG Circle: State Modified");
+    };
+
+    // 15.4 Canvas Logic
+    const canvas = document.getElementById("thisCanvas");
+    if (canvas.getContext) {
+      const ctx = canvas.getContext("2d");
+      ctx.fillStyle = "#39ff14";
+      ctx.font = "bold 20px Syne";
+      ctx.fillText("CANVAS ENGINE", 10, 50);
+      ctx.fillRect(10, 70, 100, 40);
+      logEvent("Canvas: Rendered inside ForeignObject");
+    }
+
+    // 15.3 D3 Engine
+    const chartData = [40, 80, 45, 95, 70, 30, 90, 60, 85, 50];
+    const width = document.getElementById('chart').clientWidth || 400;
+    const height = 200;
+
+    const svgD3 = d3.select("#chart").append("svg")
+      .attr("width", "100%")
+      .attr("height", height)
+      .attr("viewBox", `0 0 ${width} ${height}`);
+
+    svgD3.selectAll("rect")
+      .data(chartData)
+      .enter()
+      .append("rect")
+      .attr("x", (d, i) => i * (width / chartData.length))
+      .attr("y", d => height - d)
+      .attr("width", (width / chartData.length) - 5)
+      .attr("height", d => d)
+      .attr("fill", "url(#grad1)")
+      .attr("rx", 5)
+      .on("mouseover", function () { d3.select(this).attr("fill", "#fff"); })
+      .on("mouseout", function () { d3.select(this).attr("fill", "var(--neon-blue)"); })
+      .attr("fill", "var(--neon-blue)");
+
+    logEvent("D3: Bar Chart procedurally injected");
+
+    // 15.6 Video Core
+    const video = document.getElementById("meadow");
+    const btnPlay = document.getElementById("start");
+    const btnPause = document.getElementById("pause");
+    const btnStop = document.getElementById("stop");
+    const fb = document.getElementById("feedback");
+
+    btnPlay.onclick = () => {
+      video.play();
+      btnPlay.disabled = true;
+      btnPause.disabled = false;
+      btnStop.disabled = false;
+      logEvent("Media: Playback started");
+    };
+
+    btnPause.onclick = () => {
+      video.pause();
+      btnPlay.disabled = false;
+      btnPause.disabled = true;
+      logEvent("Media: Playback paused");
+    };
+
+    btnStop.onclick = () => {
+      video.pause();
+      video.currentTime = 0;
+      btnPlay.disabled = false;
+      btnPause.disabled = true;
+      btnStop.disabled = true;
+      logEvent("Media: Playback reset");
+    };
+
+    video.ontimeupdate = () => {
+      const time = Math.floor(video.currentTime);
+      fb.innerText = `Progress: ${time}s / ${Math.floor(video.duration)}s`;
+    };
+  </script>
+
+</body>
+
+</html>

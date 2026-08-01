@@ -1,0 +1,127 @@
+:root {
+  --bg: #05070a;
+  --glass: rgba(255, 255, 255, 0.03);
+  --border: rgba(255, 255, 255, 0.1);
+  --primary: #c084fc;
+  --secondary: #6366f1;
+  --accent: #22d3ee;
+  --text: #f8fafc;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 40px 20px;
+}
+
+.bg-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 10% 20%,
+    rgba(99, 102, 241, 0.15) 0%,
+    transparent 50%
+  );
+  z-index: -1;
+}
+
+.hero-section {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.hero-section h1 span {
+  color: var(--primary);
+  text-shadow: 0 0 20px rgba(192, 132, 252, 0.5);
+}
+.badge {
+  background: var(--secondary);
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  margin-bottom: 10px;
+}
+
+.lab-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+}
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 30px;
+  transition: 0.3s;
+}
+
+.glass-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-5px);
+}
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+.recipe-no {
+  font-family: "Fira Code";
+  color: var(--accent);
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border);
+  padding: 12px;
+  border-radius: 12px;
+  color: white;
+  margin: 10px 0;
+  outline: none;
+}
+
+.primary-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--secondary), var(--primary));
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+}
+
+.console-box {
+  margin-top: 20px;
+  background: #000;
+  padding: 15px;
+  border-radius: 12px;
+  font-family: "Fira Code", monospace;
+  font-size: 0.85rem;
+  color: #a5f3fc;
+  border-left: 4px solid var(--accent);
+  white-space: pre-wrap;
+}
+
+.full-span {
+  grid-column: 1 / -1;
+}
+.result-large {
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+}

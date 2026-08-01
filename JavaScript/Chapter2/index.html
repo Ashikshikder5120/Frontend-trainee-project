@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 2: Strings & Regex Lab | Ashik Shikder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="main-header">
+    <h1>CHAPTER 2: Strings and Regular Expressions</h1>
+    <p>Subtitle: Mastering Text Manipulation and Pattern Matching</p>
+  </header>
+
+  <div class="lab-grid">
+
+    <section class="card">
+      <span class="recipe-id">2.1</span>
+      <h3>Checking for Nonempty String</h3>
+      <input type="text" id="input21" placeholder="Type text here...">
+      <button onclick="recipe21()" class="btn">Validate String</button>
+      <div id="out21" class="terminal-box">Awaiting input...</div>
+    </section>
+
+    <section class="card">
+      <span class="recipe-id">2.2</span>
+      <h3>Number to Formatted String</h3>
+      <input type="number" id="input22" value="1242.0055">
+      <button onclick="recipe22()" class="btn">Format to USD</button>
+      <div id="out22" class="terminal-box">Awaiting input...</div>
+    </section>
+
+    <section class="card">
+      <span class="recipe-id">2.4</span>
+      <h3>Emoji Length & Bytes</h3>
+      <input type="text" id="input24" value="🍔">
+      <button onclick="recipe24()" class="btn">Analyze Emoji</button>
+      <div id="out24" class="terminal-box">Awaiting input...</div>
+    </section>
+
+    <section class="card">
+      <span class="recipe-id">2.5</span>
+      <h3>Template Literal Interpolation</h3>
+      <input type="text" id="fname" placeholder="First Name">
+      <input type="text" id="lname" placeholder="Last Name">
+      <button onclick="recipe25()" class="btn">Generate Greeting</button>
+      <div id="out25" class="terminal-box">Awaiting input...</div>
+    </section>
+
+    <section class="card">
+      <span class="recipe-id">2.6</span>
+      <h3>Case-Insensitive Comparison</h3>
+      <input type="text" id="comp1" value="HELLO">
+      <input type="text" id="comp2" value="hello">
+      <button onclick="recipe26()" class="btn">Compare via localeCompare</button>
+      <div id="out26" class="terminal-box">Awaiting input...</div>
+    </section>
+
+    <section class="card">
+      <span class="recipe-id">2.10</span>
+      <h3>Regex Pattern Replacement</h3>
+      <p><small>Pattern: <code>/t\w{2}e/g</code> (matches time, tame)</small></p>
+      <input type="text" id="input210" value="Now is the time, this is the tame">
+      <button onclick="recipe210()" class="btn">Replace with 'place'</button>
+      <div id="out210" class="terminal-box">Awaiting input...</div>
+    </section>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

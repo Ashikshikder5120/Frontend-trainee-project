@@ -1,0 +1,109 @@
+/* --- Global Styles --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f8fafc;
+  padding: 40px;
+}
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #1e293b;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  display: grid;
+  gap: 30px;
+}
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+h2 {
+  color: #4f46e5;
+  margin-bottom: 20px;
+}
+
+/* --- 20.1 CSS Transitions --- */
+.demo-box {
+  width: 150px;
+  height: 60px;
+  background: #6366f1;
+  color: white;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  cursor: pointer;
+  /* 20.1.4 Shorthand: Property | Duration | Timing | Delay */
+  transition:
+    width 0.8s,
+    background-color 0.5s;
+}
+
+.demo-box:hover {
+  width: 100%;
+  background-color: #4338ca;
+}
+
+/* 20.1.3 Timing Functions */
+.ease {
+  transition-timing-function: ease;
+}
+.linear {
+  transition-timing-function: linear;
+}
+.ease-out {
+  transition-timing-function: ease-out;
+}
+
+/* --- 20.2 CSS Animations --- */
+.animation-container {
+  height: 150px;
+  background: #f1f5f9;
+  border-radius: 8px;
+  position: relative;
+  padding: 20px;
+}
+
+.moving-box {
+  width: 80px;
+  height: 80px;
+  background-color: #ef4444;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  position: relative;
+
+  /* 20.2.7 Shorthand Animation */
+  /* Name | Duration | Timing | Iteration | Direction */
+  animation: flow-motion 4s ease-in-out infinite alternate;
+}
+
+/* 20.2.2 Multiple Keyframes */
+@keyframes flow-motion {
+  0% {
+    left: 0;
+    background-color: #ef4444;
+    transform: rotate(0deg);
+  }
+  50% {
+    background-color: #3b82f6;
+    border-radius: 50%; /* Becomes a circle */
+  }
+  100% {
+    left: calc(100% - 80px);
+    background-color: #10b981;
+    transform: rotate(360deg);
+  }
+}

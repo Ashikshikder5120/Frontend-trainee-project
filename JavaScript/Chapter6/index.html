@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JS Chapter 6: Functional Programming Masterclass</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --secondary: #0ea5e9;
+      --success: #10b981;
+      --bg: #f8fafc;
+      --sidebar: #0f172a;
+      --card: #ffffff;
+      --text-dark: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background: var(--bg);
+      display: flex;
+      color: var(--text-dark);
+    }
+
+    /* Sidebar */
+    nav {
+      width: 300px;
+      background: var(--sidebar);
+      height: 100vh;
+      position: fixed;
+      padding: 2rem 1rem;
+      color: #94a3b8;
+      overflow-y: auto;
+    }
+
+    nav h1 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      padding-left: 1rem;
+      border-left: 4px solid var(--primary);
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav li {
+      margin-bottom: 4px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: inherit;
+      font-size: 0.85rem;
+      display: block;
+      padding: 0.8rem 1rem;
+      border-radius: 6px;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      background: #1e293b;
+      color: white;
+    }
+
+    /* Main Content */
+    main {
+      margin-left: 320px;
+      padding: 3rem;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    header {
+      margin-bottom: 3rem;
+    }
+
+    header h2 {
+      font-size: 2.2rem;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      border: 1px solid #e2e8f0;
+    }
+
+    .tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    h3 {
+      margin: 0.5rem 0 1rem 0;
+      font-size: 1.4rem;
+    }
+
+    p {
+      color: #64748b;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    /* Interactive UI */
+    .playground {
+      background: #f1f5f9;
+      border-radius: 8px;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .controls {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    input {
+      padding: 8px 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    button {
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .output {
+      background: #1e293b;
+      color: #38bdf8;
+      padding: 1rem;
+      border-radius: 6px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <h1>JS CHAPTER 6</h1>
+    <ul>
+      <li><a href="#6.1">6.1 Passing as Argument</a></li>
+      <li><a href="#6.2">6.2 Using Arrow Functions</a></li>
+      <li><a href="#6.3">6.3 Default Parameter Values</a></li>
+      <li><a href="#6.4">6.4 Unlimited Arguments</a></li>
+      <li><a href="#6.5">6.5 Named Parameters</a></li>
+      <li><a href="#6.6">6.6 State with Closures</a></li>
+      <li><a href="#6.7">6.7 Generator Yielding</a></li>
+      <li><a href="#6.8">6.8 Recursive Functions</a></li>
+      <li><a href="#6.9">6.9 Function Composition</a></li>
+      <li><a href="#6.10">6.10 Method Binding (this)</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <header>
+      <h2>Functions.........</h2>
+      <p>Complete documentation and interactive lab for Chapter 6.</p>
+    </header>
+
+    <section id="6.1" class="section-card">
+      <div class="tag">Section 6.1</div>
+      <h3>Passing a Function as an Argument</h3>
+      <p>Treating functions as first-class objects by passing them into other routines.</p>
+      <div class="playground">
+        <button onclick="run61()">Run Callback</button>
+        <div id="out61" class="output">> Ready...</div>
+      </div>
+    </section>
+
+    <section id="6.2" class="section-card">
+      <div class="tag">Section 6.2</div>
+      <h3>Using Arrow Functions</h3>
+      <p>Streamlined syntax for inline expressions and lexical <code>this</code> binding.</p>
+
+      <div class="playground">
+        <input type="number" id="in62" placeholder="Value...">
+        <button onclick="run62()">Square It</button>
+        <div id="out62" class="output">> --</div>
+      </div>
+    </section>
+
+    <section id="6.3" class="section-card">
+      <div class="tag">Section 6.3</div>
+      <h3>Providing a Default Parameter Value</h3>
+      <p>Defining fallback values in the function signature.</p>
+      <div class="playground">
+        <input type="text" id="in63" placeholder="Enter name...">
+        <button onclick="run63()">Greet</button>
+        <div id="out63" class="output">> --</div>
+      </div>
+    </section>
+
+    <section id="6.4" class="section-card">
+      <div class="tag">Section 6.4</div>
+      <h3>Creating a Function That Accepts Unlimited Arguments</h3>
+      <p>Using the <b>Rest Parameter</b> (<code>...args</code>) to capture multiple inputs as an array.</p>
+      <div class="playground">
+        <input type="text" id="in64" placeholder="1, 2, 3, 4...">
+        <button onclick="run64()">Sum All</button>
+        <div id="out64" class="output">> --</div>
+      </div>
+    </section>
+
+    <section id="6.5" class="section-card">
+      <div class="tag">Section 6.5</div>
+      <h3>Using Named Function Parameters</h3>
+      <p>Leveraging object destructuring to simulate named arguments.</p>
+      <div class="playground">
+        <button onclick="run65()">Run with Settings Object</button>
+        <div id="out65" class="output">> --</div>
+      </div>
+    </section>
+
+    <section id="6.6" class="section-card">
+      <div class="tag">Section 6.6</div>
+      <h3>Creating a Function That Stores its State with a Closure</h3>
+      <p>Encapsulating persistent variables within a private lexical environment.</p>
+
+      <div class="playground">
+        <button onclick="run66()">Increment Counter</button>
+        <div id="out66" class="output">> Count: 0</div>
+      </div>
+    </section>
+
+    <section id="6.7" class="section-card">
+      <div class="tag">Section 6.7</div>
+      <h3>Creating a Generator Function That Yields Multiple Values</h3>
+      <p>Pausing and resuming execution using <code>function*</code> and <code>yield</code>.</p>
+      <div class="playground">
+        <button onclick="run67()">Yield Next</button>
+        <div id="out67" class="output">> Start sequence...</div>
+      </div>
+    </section>
+
+    <section id="6.8" class="section-card">
+      <div class="tag">Section 6.8 - 6.10</div>
+      <h3>Advanced Composition & Binding</h3>
+      <p>Covers Recursion, Function Composition, and explicit Context Binding (<code>this</code>).</p>
+      <div class="playground">
+        <button onclick="run610()">Test .bind()</button>
+        <div id="out610" class="output">> --</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 6.1
+    function run61() {
+      const out = document.getElementById('out61');
+      out.innerText = "> Loading callback...";
+      setTimeout(() => { out.innerText = "> Callback success!"; }, 1000);
+    }
+
+    // 6.2
+    const sq = n => n * n;
+    function run62() {
+      const v = document.getElementById('in62').value;
+      document.getElementById('out62').innerText = `> ${sq(v || 0)}`;
+    }
+
+    // 6.3
+    const welcome = (n = "Guest") => `Hello, ${n}`;
+    function run63() {
+      const v = document.getElementById('in63').value;
+      document.getElementById('out63').innerText = `> ${welcome(v || undefined)}`;
+    }
+
+    // 6.4
+    function sumAll(...nums) { return nums.reduce((s, n) => s + Number(n), 0); }
+    function run64() {
+      const v = document.getElementById('in64').value.split(',');
+      document.getElementById('out64').innerText = `> Total: ${sumAll(...v)}`;
+    }
+
+    // 6.5
+    function config({ theme = 'Dark', mode = 'Dev' } = {}) { return `Theme: ${theme}, Mode: ${mode}`; }
+    function run65() {
+      document.getElementById('out65').innerText = `> ${config({ theme: 'Ocean' })}`;
+    }
+
+    // 6.6
+    const counter = (() => {
+      let c = 0;
+      return () => ++c;
+    })();
+    function run66() {
+      document.getElementById('out66').innerText = `> Private Count: ${counter()}`;
+    }
+
+    // 6.7
+    function* gen() { yield "Packet A"; yield "Packet B"; return "Done"; }
+    const it = gen();
+    function run67() {
+      document.getElementById('out67').innerText = `> ${it.next().value}`;
+    }
+
+    // 6.10
+    const obj = { name: 'Lab-System', msg() { return this.name; } };
+    function run610() {
+      const fn = obj.msg.bind(obj);
+      document.getElementById('out610').innerText = `> Bound to: ${fn()}`;
+    }
+  </script>
+</body>
+
+</html>

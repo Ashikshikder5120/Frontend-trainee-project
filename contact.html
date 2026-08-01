@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Ashik Shikder</title>
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1005/1005141.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+    body {
+      background: #0f1115;
+      color: #e5e7eb;
+      padding: 40px 20px;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background: #ffffff;
+      color: #1f2937;
+      border-radius: 18px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+    }
+
+    header {
+      background: #111827;
+      color: #fff;
+      padding: 40px 30px;
+      text-align: center;
+      border-bottom: 6px solid #22c55e;
+    }
+
+    header h1 { font-size: 28px; margin-bottom: 8px; }
+    header p { color: #9ca3af; font-size: 14px; }
+
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 0;
+    }
+
+    @media (max-width: 700px) {
+      .body-grid { grid-template-columns: 1fr; }
+    }
+
+    .info-panel {
+      background: #f3f4f6;
+      padding: 35px 30px;
+    }
+
+    .info-panel h2 { font-size: 18px; margin-bottom: 20px; color: #111827; }
+
+    .info-item { display: flex; gap: 12px; margin-bottom: 22px; align-items: flex-start; }
+    .info-item .ic {
+      width: 38px; height: 38px; background: #22c55e; color: #fff;
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-size: 16px; flex-shrink: 0;
+    }
+    .info-item strong { display: block; font-size: 13px; color: #111827; }
+    .info-item span { font-size: 13px; color: #4b5563; }
+
+    .socials { display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap; }
+    .socials a {
+      text-decoration: none; font-size: 12px; padding: 8px 14px;
+      background: #111827; color: #fff; border-radius: 30px;
+    }
+    .socials a:hover { background: #22c55e; color: #032; }
+
+    .form-panel { padding: 35px 30px; }
+    .form-panel h2 { font-size: 18px; margin-bottom: 6px; color: #111827; }
+    .form-panel .sub { font-size: 13px; color: #6b7280; margin-bottom: 20px; }
+
+    .field { margin-bottom: 16px; }
+    .field label { display: block; font-size: 12px; font-weight: 600; margin-bottom: 6px; color: #374151; }
+    .field input, .field textarea {
+      width: 100%; padding: 12px; border: 1px solid #d1d5db; border-radius: 8px;
+      font-size: 14px; font-family: inherit; resize: vertical;
+    }
+    .field input:focus, .field textarea:focus { outline: none; border-color: #22c55e; }
+    .field-error { color: #dc2626; font-size: 12px; margin-top: 4px; display: none; }
+    .field-error.show { display: block; }
+
+    .send-btn {
+      background: #22c55e; color: #fff; border: none; padding: 13px 28px;
+      border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 15px;
+      width: 100%;
+    }
+    .send-btn:hover { background: #1ba34e; }
+
+    .status-msg {
+      margin-top: 14px; font-size: 13px; padding: 10px 12px; border-radius: 8px;
+      display: none;
+    }
+    .status-msg.show { display: block; }
+    .status-msg.success { background: #dcfce7; color: #15803d; }
+    .status-msg.error { background: #fee2e2; color: #b91c1c; }
+
+    footer { text-align: center; padding: 18px; font-size: 12px; color: #6b7280; }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>📬 Get in Touch</h1>
+      <p>Questions about the lessons, feedback, or collaboration — send a message below.</p>
+    </header>
+
+    <div class="body-grid">
+      <div class="info-panel">
+        <h2>Contact Details</h2>
+
+        <div class="info-item">
+          <div class="ic">✉️</div>
+          <div>
+            <strong>Email</strong>
+            <span>ashikislam512@gmail.com</span>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="ic">📍</div>
+          <div>
+            <strong>Location</strong>
+            <span>Dhaka, Bangladesh</span>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="ic">🎓</div>
+          <div>
+            <strong>Program</strong>
+            <span>Frontend Trainee, Batch CS/SCSL-M/68/01</span>
+          </div>
+        </div>
+
+        <h2 style="margin-top:26px;">Connect</h2>
+        <div class="socials">
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+
+      <div class="form-panel">
+        <h2>Send a Message</h2>
+        <p class="sub">This is a static trainee project (no backend), so your message opens in your email app, ready to send.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="field">
+            <label for="cName">Name</label>
+            <input type="text" id="cName" placeholder="Your full name" required>
+            <div class="field-error" id="cNameErr">Please enter your name.</div>
+          </div>
+
+          <div class="field">
+            <label for="cEmail">Email</label>
+            <input type="email" id="cEmail" placeholder="you@example.com" required>
+            <div class="field-error" id="cEmailErr">Please enter a valid email.</div>
+          </div>
+
+          <div class="field">
+            <label for="cSubject">Subject</label>
+            <input type="text" id="cSubject" placeholder="What's this about?" required>
+            <div class="field-error" id="cSubjectErr">Please enter a subject.</div>
+          </div>
+
+          <div class="field">
+            <label for="cMessage">Message</label>
+            <textarea id="cMessage" rows="5" placeholder="Write your message..." required></textarea>
+            <div class="field-error" id="cMessageErr">Please enter a message (min 10 characters).</div>
+          </div>
+
+          <button type="submit" class="send-btn">Send Message</button>
+          <div class="status-msg" id="statusMsg"></div>
+        </form>
+      </div>
+    </div>
+
+    <footer>© 2026 Ashik Shikder — Frontend Trainee Project</footer>
+  </div>
+
+  <script>
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function setErr(id, show) {
+      document.getElementById(id).style.borderColor = show ? '#dc2626' : '#d1d5db';
+      document.getElementById(id + 'Err').classList.toggle('show', show);
+    }
+
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('cName').value.trim();
+      const email = document.getElementById('cEmail').value.trim();
+      const subject = document.getElementById('cSubject').value.trim();
+      const message = document.getElementById('cMessage').value.trim();
+
+      const nameOk = name.length >= 2;
+      const emailOk = emailRegex.test(email);
+      const subjectOk = subject.length >= 2;
+      const messageOk = message.length >= 10;
+
+      setErr('cName', !nameOk);
+      setErr('cEmail', !emailOk);
+      setErr('cSubject', !subjectOk);
+      setErr('cMessage', !messageOk);
+
+      const statusEl = document.getElementById('statusMsg');
+
+      if (!nameOk || !emailOk || !subjectOk || !messageOk) {
+        statusEl.textContent = 'Please fix the highlighted fields.';
+        statusEl.className = 'status-msg show error';
+        return;
+      }
+
+      const mailBody = `Name: ${name}%0AEmail: ${email}%0A%0A${message}`;
+      const mailto = `mailto:ashikislam512@gmail.com?subject=${encodeURIComponent(subject)}&body=${mailBody}`;
+
+      statusEl.textContent = 'Opening your email app to send the message...';
+      statusEl.className = 'status-msg show success';
+
+      window.location.href = mailto;
+      this.reset();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shikder Systems Core v8.0</title>
+  <style>
+    :root {
+      --neon: #0ea5e9;
+      --bg: #020617;
+      --card: #0f172a;
+      --text: #f1f5f9;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      display: flex;
+    }
+
+    /* Sidebar Navigation */
+    nav {
+      width: 300px;
+      height: 100vh;
+      position: fixed;
+      background: #000;
+      padding: 30px;
+      border-right: 1px solid #1e293b;
+      overflow-y: auto;
+    }
+
+    nav h2 {
+      color: var(--neon);
+      font-size: 1.2rem;
+      border-bottom: 2px solid #1e293b;
+      padding-bottom: 10px;
+    }
+
+    nav ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    nav a {
+      color: #94a3b8;
+      text-decoration: none;
+      display: block;
+      padding: 10px 0;
+      font-size: 0.85rem;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: white;
+      transform: translateX(10px);
+    }
+
+    /* Main Content */
+    main {
+      margin-left: 300px;
+      padding: 50px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .recipe-card {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 30px;
+      margin-bottom: 30px;
+      border: 1px solid #1e293b;
+    }
+
+    .header-tag {
+      color: var(--neon);
+      font-family: monospace;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    h3 {
+      margin: 10px 0 5px 0;
+      font-size: 1.5rem;
+    }
+
+    .subtitle {
+      color: #64748b;
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+
+    .ui-box {
+      background: #000;
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    button {
+      background: var(--neon);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .terminal {
+      background: #000;
+      color: #10b981;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      border: 1px solid #1e293b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <h2>SHIKDER ARCHIVE</h2>
+    <ul>
+      <li><a href="#8.1">8.1 Creating a Reusable Class</a></li>
+      <li><a href="#8.2">8.2 Adding Properties to a Class</a></li>
+      <li><a href="#8.3">8.3 Better String Representation</a></li>
+      <li><a href="#8.4">8.4 Constructor Pattern</a></li>
+      <li><a href="#8.5">8.5 Method Chaining</a></li>
+      <li><a href="#8.6">8.6 Static Methods</a></li>
+      <li><a href="#8.7">8.7 Static Method as a Factory</a></li>
+      <li><a href="#8.8">8.8 Inheriting Functionality</a></li>
+      <li><a href="#8.9">8.9 Classes with Modules</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="8.1" class="recipe-card">
+      <div class="header-tag">RECIPE 8.1</div>
+      <h3>Creating a Reusable Class</h3>
+      <div class="subtitle">Scenario: Ashik Shikder as a System User template.</div>
+      <div class="ui-box">
+        <button onclick="run81()">Initialize Unit</button>
+        <div id="out81" class="terminal">> Waiting...</div>
+      </div>
+    </section>
+
+    <section id="8.2" class="recipe-card">
+      <div class="header-tag">RECIPE 8.2</div>
+      <h3>Adding Properties to a Class</h3>
+      <div class="subtitle">Scenario: Validating System Priority via Get/Set.</div>
+      <div class="ui-box">
+        <input type="number" id="in82" value="5" style="padding: 8px; border-radius: 4px;">
+        <button onclick="run82()">Set Priority</button>
+        <div id="out82" class="terminal">> Level: --</div>
+      </div>
+    </section>
+
+    <section id="8.3" class="recipe-card">
+      <div class="header-tag">RECIPE 8.3</div>
+      <h3>Better String Representation</h3>
+      <div class="subtitle">Scenario: Custom toString() for Shikder Core.</div>
+      <div class="ui-box">
+        <button onclick="run83()">Convert to String</button>
+        <div id="out83" class="terminal">> Result: --</div>
+      </div>
+    </section>
+
+    <section id="8.4" class="recipe-card">
+      <div class="header-tag">RECIPE 8.4</div>
+      <h3>Using the Constructor Pattern</h3>
+      <div class="subtitle">Scenario: Traditional function-based object creation.</div>
+      <div class="ui-box">
+        <button onclick="run84()">Legacy Execution</button>
+        <div id="out84" class="terminal">> Prototype: --</div>
+      </div>
+    </section>
+
+    <section id="8.5" class="recipe-card">
+      <div class="header-tag">RECIPE 8.5</div>
+      <h3>Supporting Method Chaining</h3>
+      <div class="subtitle">Scenario: Sequential System Updates.</div>
+      <div class="ui-box">
+        <button onclick="run85()">Run Pipeline</button>
+        <div id="out85" class="terminal">> Chained Result: --</div>
+      </div>
+    </section>
+
+    <section id="8.6" class="recipe-card">
+      <div class="header-tag">RECIPE 8.6</div>
+      <h3>Adding Static Methods</h3>
+      <div class="subtitle">Scenario: Global System Utility (Math/Validation).</div>
+      <div class="ui-box">
+        <button onclick="run86()">Verify System Key</button>
+        <div id="out86" class="terminal">> Static Output: --</div>
+      </div>
+    </section>
+
+    <section id="8.7" class="recipe-card">
+      <div class="header-tag">RECIPE 8.7</div>
+      <h3>Static Method as a Factory</h3>
+      <div class="subtitle">Scenario: Generating specialized Shikder instances.</div>
+      <div class="ui-box">
+        <button onclick="run87()">Spawn Admin User</button>
+        <div id="out87" class="terminal">> Factory Output: --</div>
+      </div>
+    </section>
+
+    <section id="8.8" class="recipe-card">
+      <div class="header-tag">RECIPE 8.8</div>
+      <h3>Inheriting Functionality</h3>
+      <div class="subtitle">Scenario: Extending Core System into Admin Privileges.</div>
+      <div class="ui-box">
+        <button onclick="run88()">Execute 'extends' Logic</button>
+        <div id="out88" class="terminal">> super() logic check: --</div>
+      </div>
+    </section>
+
+    <section id="8.9" class="recipe-card">
+      <div class="header-tag">RECIPE 8.9</div>
+      <h3>Organizing Classes with Modules</h3>
+      <div class="subtitle">Scenario: Separating code into logical files.</div>
+      <div class="terminal" style="color: #6366f1;">
+        // Shikder.js
+        export class Core { ... }
+
+        // App.js
+        import { Core } from './Shikder.js';
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // 8.1 Class Basics
+    class ShikderUnit {
+      constructor(name) { this.name = name; }
+      msg() { return `System Lead: ${this.name}`; }
+    }
+    function run81() {
+      const lead = new ShikderUnit('Ashik Shikder');
+      document.getElementById('out81').innerText = `> ${lead.msg()}`;
+    }
+
+    // 8.2 Get/Set
+    class Priority {
+      constructor() { this._lvl = 0; }
+      get label() { return this._lvl > 7 ? "High Priority" : "Standard"; }
+      set lvl(v) { this._lvl = v; }
+    }
+    function run82() {
+      const p = new Priority();
+      p.lvl = document.getElementById('in82').value;
+      document.getElementById('out82').innerText = `> Status: ${p.label}`;
+    }
+
+    // 8.3 toString
+    ShikderUnit.prototype.toString = function () { return `[SHIKDER_CORE]::${this.name}`; }
+    function run83() {
+      const lead = new ShikderUnit('Ashik Shikder');
+      document.getElementById('out83').innerText = `String: ${lead.toString()}`;
+    }
+
+    // 8.4 Constructor Pattern
+    function LegacyCore(name) { this.name = name; }
+    LegacyCore.prototype.start = function () { return `Legacy ${this.name} running.`; }
+    function run84() {
+      const old = new LegacyCore('Ashik');
+      document.getElementById('out84').innerText = `> ${old.start()}`;
+    }
+
+    // 8.5 Chaining
+    class Flow {
+      constructor() { this.log = []; }
+      step1() { this.log.push("P1"); return this; }
+      step2() { this.log.push("P2"); return this; }
+      done() { return this.log.join(' -> '); }
+    }
+    function run85() {
+      const res = new Flow().step1().step2().done();
+      document.getElementById('out85').innerText = `> Result: ${res}`;
+    }
+
+    // 8.6 Static
+    class Checker {
+      static check(id) { return id === 1234; }
+    }
+    function run86() {
+      const res = Checker.check(1234);
+      document.getElementById('out86').innerText = `> Static Verified: ${res}`;
+    }
+
+    // 8.7 Factory
+    class Account {
+      constructor(n, r) { this.n = n; this.r = r; }
+      static createAshik() { return new Account('Ashik Shikder', 'Admin'); }
+    }
+    function run87() {
+      const ashik = Account.createAshik();
+      document.getElementById('out87').innerText = `> Spawned: ${ashik.n} (${ashik.r})`;
+    }
+
+    // 8.8 Inheritance
+    class MasterSystem extends ShikderUnit {
+      constructor(name, key) { super(name); this.key = key; }
+      unlock() { return `${this.name} unlocked system with ${this.key}`; }
+    }
+    function run88() {
+      const master = new MasterSystem('Ashik Shikder', 'SECRET_99');
+      document.getElementById('out88').innerText = `Child Access: ${master.unlock()}`;
+    }
+  </script>
+</body>
+
+</html>

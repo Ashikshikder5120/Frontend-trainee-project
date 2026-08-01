@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎯 Interactive JavaScript Learning Platform</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+      --error-color: #ef4444;
+      --info-color: #3b82f6;
+      --dark-bg: #1f2937;
+      --light-bg: #f9fafb;
+      --card-bg: #ffffff;
+      --text-primary: #111827;
+      --text-secondary: #6b7280;
+      --border-radius: 16px;
+      --box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--primary-gradient);
+      min-height: 100vh;
+      padding: 40px 20px;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Header Styles */
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+      color: white;
+    }
+
+    .logo {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: inline-block;
+      background: var(--secondary-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      font-weight: 300;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Grid Layout */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    /* Card Styles */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      font-size: 24px;
+      color: white;
+    }
+
+    .icon-user {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+    }
+
+    .icon-server {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+    }
+
+    .icon-calc {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+    }
+
+    .icon-console {
+      background: linear-gradient(135deg, #43e97b, #38f9d7);
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+      font-size: 1rem;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px 20px;
+      border: 2px solid #e5e7eb;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-family: 'Poppins', sans-serif;
+      transition: var(--transition);
+      background: var(--light-bg);
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: white;
+    }
+
+    .input-icon {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9ca3af;
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      background: var(--primary-gradient);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      margin-top: 10px;
+      gap: 10px;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    /* Output Styles */
+    .output-container {
+      margin-top: 30px;
+      padding: 25px;
+      border-radius: 12px;
+      background: var(--light-bg);
+      font-family: 'Roboto Mono', monospace;
+      font-size: 1rem;
+      line-height: 1.8;
+      min-height: 100px;
+      display: flex;
+      align-items: center;
+      transition: var(--transition);
+      border-left: 5px solid transparent;
+    }
+
+    .output-container.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-left-color: var(--success-color);
+      color: #065f46;
+    }
+
+    .output-container.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-left-color: var(--warning-color);
+      color: #92400e;
+    }
+
+    .output-container.error {
+      background: rgba(239, 68, 68, 0.1);
+      border-left-color: var(--error-color);
+      color: #991b1b;
+    }
+
+    .output-container.info {
+      background: rgba(59, 130, 246, 0.1);
+      border-left-color: var(--info-color);
+      color: #1e40af;
+    }
+
+    .output-icon {
+      margin-right: 15px;
+      font-size: 24px;
+    }
+
+    .output-content {
+      flex: 1;
+    }
+
+    /* Console Panel */
+    .console-panel {
+      background: var(--dark-bg);
+      color: #d1d5db;
+      border-radius: var(--border-radius);
+      padding: 25px;
+      margin-top: 40px;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    .console-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #374151;
+    }
+
+    .console-title {
+      font-weight: 600;
+      color: #9ca3af;
+      font-size: 1.1rem;
+    }
+
+    .console-dots {
+      display: flex;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot-red {
+      background: #ef4444;
+    }
+
+    .dot-yellow {
+      background: #f59e0b;
+    }
+
+    .dot-green {
+      background: #10b981;
+    }
+
+    #consoleOutput {
+      height: 200px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 0.9rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .footer-link {
+      color: white;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: #c7d2fe;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 25px;
+      }
+
+      .console-panel {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 20px 15px;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .card-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .card-icon {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .card {
+      animation: fadeIn 0.6s ease forwards;
+    }
+
+    .card:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .card:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="logo">
+        <i class="fas fa-code"></i>
+      </div>
+      <h1>Setting Up a Development Environment</h1>
+      <p class="subtitle">Explore JavaScript concepts with interactive examples. Perfect for beginners and experienced
+        developers alike.</p>
+    </header>
+
+    <!-- Main Content Grid -->
+    <div class="cards-grid">
+      <!-- Card 1: User Information -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-user">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div>
+            <h2 class="card-title">👤 User Information</h2>
+            <p class="card-description">Enter your details to see personalized information</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name"><i class="fas fa-signature"></i> Full Name</label>
+          <div class="input-wrapper">
+            <input type="text" id="name" placeholder="Enter your full name">
+            <div class="input-icon">
+              <i class="fas fa-user"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="age"><i class="fas fa-birthday-cake"></i> Age</label>
+          <div class="input-wrapper">
+            <input type="number" id="age" placeholder="Enter your age" min="1" max="120">
+            <div class="input-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn" onclick="showUserInfo()">
+          <i class="fas fa-user-check"></i> Show User Information
+        </button>
+
+        <div class="output-container" id="userOutput">
+          <div class="output-icon">
+            <i class="fas fa-info-circle"></i>
+          </div>
+          <div class="output-content">
+            Your information will appear here...
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2: Environment Detection -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-server">
+            <i class="fas fa-server"></i>
+          </div>
+          <div>
+            <h2 class="card-title">🌐 Environment Detection</h2>
+            <p class="card-description">Check if you're running locally or on a server</p>
+          </div>
+        </div>
+
+        <button class="btn" onclick="checkServer()">
+          <i class="fas fa-search"></i> Detect Environment
+        </button>
+
+        <div class="output-container" id="serverOutput">
+          <div class="output-icon">
+            <i class="fas fa-question-circle"></i>
+          </div>
+          <div class="output-content">
+            Click the button to detect your environment...
+          </div>
+        </div>
+
+        <div style="margin-top: 25px; padding: 20px; background: #f0f9ff; border-radius: 12px;">
+          <h3 style="font-size: 1rem; margin-bottom: 10px; color: #0369a1;">
+            <i class="fas fa-lightbulb"></i> Why This Matters
+          </h3>
+          <p style="font-size: 0.9rem; color: #0c4a6e;">
+            JavaScript modules and certain APIs work differently when running from a file:// protocol vs a server.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3: Strict Mode Calculator -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon icon-calc">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <div>
+            <h2 class="card-title">🧮 Range Calculator</h2>
+            <p class="card-description">Calculate sum of numbers in a range (with strict mode)</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="start"><i class="fas fa-play"></i> Start Number</label>
+          <div class="input-wrapper">
+            <input type="number" id="start" placeholder="Enter starting number">
+            <div class="input-icon">
+              <i class="fas fa-arrow-right"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="end"><i class="fas fa-flag-checkered"></i> End Number</label>
+          <div class="input-wrapper">
+            <input type="number" id="end" placeholder="Enter ending number">
+            <div class="input-icon">
+              <i class="fas fa-arrow-left"></i>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn" onclick="calculate()">
+          <i class="fas fa-calculator"></i> Calculate Sum
+        </button>
+
+        <div class="output-container" id="calcOutput">
+          <div class="output-icon">
+            <i class="fas fa-calculator"></i>
+          </div>
+          <div class="output-content">
+            Calculation result will appear here...
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Console Panel -->
+    <div class="console-panel">
+      <div class="console-header">
+        <div class="console-title">
+          <i class="fas fa-terminal"></i> JavaScript Console Output
+        </div>
+        <div class="console-dots">
+          <div class="dot dot-red"></div>
+          <div class="dot dot-yellow"></div>
+          <div class="dot dot-green"></div>
+        </div>
+      </div>
+      <pre id="consoleOutput">Console is ready. Start interacting with the examples above to see output here.</pre>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Interactive JavaScript Learning Platform • Built with modern CSS & JavaScript</p>
+      <div class="footer-links">
+        <a href="#" class="footer-link">GitHub</a>
+        <a href="#" class="footer-link">Documentation</a>
+        <a href="#" class="footer-link">Contact</a>
+        <a href="#" class="footer-link">About</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    'use strict';
+
+    // Custom console logger
+    function logToConsole(message, type = 'info') {
+      const consoleOutput = document.getElementById('consoleOutput');
+      const timestamp = new Date().toLocaleTimeString();
+      const typeIcon = {
+        'info': '🔵',
+        'success': '🟢',
+        'warning': '🟡',
+        'error': '🔴',
+        'user': '👤',
+        'calc': '🧮',
+        'env': '🌐'
+      }[type] || '📝';
+
+      consoleOutput.innerHTML += `\n[${timestamp}] ${typeIcon} ${message}`;
+      consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    }
+
+    // Initialize console
+    logToConsole('Page loaded successfully. All scripts are running in strict mode.', 'info');
+
+    // 1. User Information Function
+    function showUserInfo() {
+      const name = document.getElementById("name").value.trim();
+      const age = document.getElementById("age").value;
+      const output = document.getElementById("userOutput");
+
+      // Clear previous output classes
+      output.className = "output-container";
+
+      if (!name || !age) {
+        output.innerHTML = `
+                    <div class="output-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="output-content">
+                        <strong>⚠️ Incomplete Information</strong><br>
+                        Please enter both your name and age to continue.
+                    </div>
+                `;
+        output.classList.add("warning");
+        logToConsole(`User info attempt failed: Missing ${!name ? 'name' : 'age'}`, 'warning');
+        return;
+      }
+
+      const ageNum = parseInt(age);
+      const isAdult = ageNum >= 18;
+      const status = isAdult ? "Adult" : "Minor";
+      const statusIcon = isAdult ? "✅" : "📚";
+
+      output.innerHTML = `
+                <div class="output-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="output-content">
+                    <strong>✅ User Information Registered</strong><br><br>
+                    <strong>👤 Name:</strong> ${name}<br>
+                    <strong>🎂 Age:</strong> ${age} years old<br>
+                    <strong>${statusIcon} Status:</strong> ${status}<br>
+                    <strong>📅 Birth Year:</strong> ${new Date().getFullYear() - ageNum}
+                </div>
+            `;
+      output.classList.add("success");
+
+      // Log to console
+      logToConsole(`User registered: ${name}, ${age} years old (${status})`, 'user');
+      console.log(`User Information: Name=${name}, Age=${age}, Status=${status}`);
+    }
+
+    // 2. Environment Detection Function
+    function checkServer() {
+      const output = document.getElementById("serverOutput");
+      output.className = "output-container";
+
+      let message = "";
+      let icon = "";
+      let type = "";
+
+      if (location.protocol === "file:") {
+        message = `
+                    <strong>📁 Local File Environment</strong><br><br>
+                    You're running this page directly from your file system.<br>
+                    <small style="color: inherit; opacity: 0.8;">
+                        <i class="fas fa-exclamation-circle"></i> Note: Some JavaScript features like modules may not work properly.
+                    </small>
+                `;
+        icon = "fa-file";
+        type = "warning";
+        logToConsole("Environment: Running as local file (file:// protocol)", 'warning');
+      } else if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+        message = `
+                    <strong>🖥️ Local Server Environment</strong><br><br>
+                    You're running on a local development server.<br>
+                    <small style="color: inherit; opacity: 0.8;">
+                        <i class="fas fa-check-circle"></i> Perfect for development! All JavaScript features should work.
+                    </small>
+                `;
+        icon = "fa-server";
+        type = "success";
+        logToConsole(`Environment: Running on local server (${location.host})`, 'env');
+      } else {
+        message = `
+                    <strong>🌐 Remote Server Environment</strong><br><br>
+                    You're running on a remote web server.<br>
+                    <small style="color: inherit; opacity: 0.8;">
+                        <i class="fas fa-globe"></i> Hostname: ${location.hostname}
+                    </small>
+                `;
+        icon = "fa-globe";
+        type = "info";
+        logToConsole(`Environment: Running on remote server (${location.host})`, 'env');
+      }
+
+      output.innerHTML = `
+                <div class="output-icon">
+                    <i class="fas ${icon}"></i>
+                </div>
+                <div class="output-content">
+                    ${message}
+                </div>
+            `;
+      output.classList.add(type);
+    }
+
+    // 3. Calculator Function
+    function calculate() {
+      const start = Number(document.getElementById("start").value);
+      const end = Number(document.getElementById("end").value);
+      const output = document.getElementById("calcOutput");
+
+      // Clear previous output classes
+      output.className = "output-container";
+
+      // Input validation
+      if (isNaN(start) || isNaN(end)) {
+        output.innerHTML = `
+                    <div class="output-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="output-content">
+                        <strong>❌ Invalid Input</strong><br>
+                        Please enter valid numbers in both fields.
+                    </div>
+                `;
+        output.classList.add("error");
+        logToConsole("Calculation failed: Invalid numeric input", 'error');
+        return;
+      }
+
+      if (start > end) {
+        output.innerHTML = `
+                    <div class="output-icon">
+                        <i class="fas fa-sort-numeric-down"></i>
+                    </div>
+                    <div class="output-content">
+                        <strong>⚠️ Range Issue</strong><br>
+                        Start number (${start}) cannot be greater than end number (${end}).<br>
+                        Try swapping the values.
+                    </div>
+                `;
+        output.classList.add("warning");
+        logToConsole(`Calculation failed: Start (${start}) > End (${end})`, 'warning');
+        return;
+      }
+
+      // Calculate sum
+      console.time("Range Calculation");
+      let sum = 0;
+      let calculationSteps = [];
+
+      for (let i = start; i <= end; i++) {
+        sum += i;
+        if (i <= start + 2 || i >= end - 2 || i % Math.ceil((end - start) / 5) === 0) {
+          calculationSteps.push(i);
+        }
+      }
+
+      const timeTaken = console.timeEnd("Range Calculation");
+
+      // Format numbers with commas
+      const formattedStart = start.toLocaleString();
+      const formattedEnd = end.toLocaleString();
+      const formattedSum = sum.toLocaleString();
+      const rangeLength = end - start + 1;
+
+      output.innerHTML = `
+                <div class="output-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="output-content">
+                    <strong>🧮 Calculation Complete</strong><br><br>
+                    <strong>Sum of numbers from ${formattedStart} to ${formattedEnd}:</strong><br>
+                    <span style="font-size: 1.5rem; font-weight: bold; color: #059669;">${formattedSum}</span><br><br>
+                    <small style="color: inherit; opacity: 0.8;">
+                        <i class="fas fa-info-circle"></i> Range includes ${rangeLength} numbers
+                    </small>
+                </div>
+            `;
+      output.classList.add("success");
+
+      // Log to console
+      logToConsole(`Calculated sum: ${start} to ${end} = ${sum} (${rangeLength} numbers)`, 'calc');
+      console.log(`Calculation: sum(${start}..${end}) = ${sum}`);
+      console.log(`Calculation steps sample: ${calculationSteps.join(', ')}...`);
+    }
+
+    // Add event listeners for Enter key
+    document.addEventListener('DOMContentLoaded', function () {
+      // Add Enter key support for inputs
+      const inputs = document.querySelectorAll('input');
+      inputs.forEach(input => {
+        input.addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') {
+            const card = this.closest('.card');
+            const button = card.querySelector('.btn');
+            if (button) button.click();
+          }
+        });
+      });
+
+      // Add some sample data on load for demo purposes
+      document.getElementById('name').value = 'Ashik Shikder';
+      document.getElementById('age').value = '25';
+      document.getElementById('start').value = '1';
+      document.getElementById('end').value = '100';
+
+      logToConsole('Demo data loaded. Try interacting with the examples!', 'info');
+    });
+  </script>
+</body>
+
+</html>

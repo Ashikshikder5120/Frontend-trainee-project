@@ -1,0 +1,66 @@
+/* Core Setup */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #f0f2f5;
+  font-size: 1.6rem;
+  padding: 20px;
+}
+.container {
+  max-width: 850px;
+  margin: auto;
+}
+.card {
+  background: white;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Common Box Style */
+.box {
+  height: 150px;
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+}
+
+/* 7.1.5 Background Size */
+.cover-bg {
+  background-image: url("https://via.placeholder.com/800x400");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover; /* Covers the whole box */
+}
+
+/* 7.2.1 Linear Gradient */
+.linear-grad {
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+}
+
+/* 7.2.3 Radial Gradient */
+.radial-grad {
+  background: radial-gradient(circle, #f59e0b, #ef4444);
+}
+
+/* 7.1.7 Background Clip Example */
+.clip-content {
+  background-color: #10b981;
+  border: 10px dashed #1e293b;
+  padding: 30px;
+  background-clip: content-box; /* Color stays inside padding */
+}

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevTools Masterclass | Chapter 11</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --accent: #10b981;
+      --danger: #ef4444;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 900px;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    /* Card Styling */
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+    }
+
+    .recipe-tag {
+      background: #e0e7ff;
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    p {
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* Form Elements */
+    .input-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    button.secondary {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      border: 1px solid #cbd5e1;
+    }
+
+    button.secondary:hover {
+      background-color: #e2e8f0;
+    }
+
+    /* Result Display */
+    .result-box {
+      margin-top: 20px;
+      padding: 15px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9rem;
+      border-left: 4px solid var(--accent);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #fee2e2;
+      color: var(--danger);
+      font-size: 0.75rem;
+      margin-top: 10px;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Browser Tools Dashboard</h1>
+      <p>Interactive playground for JavaScript debugging & profiling</p>
+    </header>
+
+    <section class="card">
+      <span class="recipe-tag">Recipe 11.1</span>
+      <h2>JavaScript Debugging</h2>
+      <p>Breakpoints test korun. Text likhe button-e click korle script-ti <code>debugger</code> line-e pause hobe.</p>
+      <div class="input-group">
+        <input type="text" id="debugInput" placeholder="Write something (e.g. Hello @World!)">
+        <button onclick="runDebug()">Inspect Code</button>
+      </div>
+      <div id="debugResultBox" class="result-box" style="display: none;">
+        Result: <span id="debugResult"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="recipe-tag">Recipe 11.2</span>
+      <h2>Runtime Performance</h2>
+      <p>Heavy CPU calculation test korun. Performance tab-e record on kore button-ti click korun.</p>
+      <button onclick="runPerformanceTest()" class="secondary">Start Stress Test</button>
+      <div id="perfResultBox" class="result-box" style="display: none; border-left-color: var(--danger);">
+        Status: <span id="perf-result">Ready</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="recipe-tag">Recipe 11.3</span>
+      <h2>Identifying Unused Code</h2>
+      <p>Code Coverage check korar jonno ekhon "Show Coverage" tab open korun. Nicher button-ti click na kora porjonto
+        eta 'Unused' thakbe.</p>
+      <button onclick="useExtraCode()" class="secondary">Execute Extra Logic</button>
+      <div id="coverageResultBox" class="result-box" style="display: none; border-left-color: var(--primary);">
+        Message: <span id="coverage-msg">Waiting...</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <span class="recipe-tag">Recipe 11.4</span>
+      <h2>Lighthouse & Best Practices</h2>
+      <p>Full page audit-er jonno DevTools-er <b>Lighthouse</b> tab use korun.</p>
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <img src="https://via.placeholder.com/80" style="border-radius: 8px;">
+        <div>
+          <span class="badge">Missing Alt Tag (Lighthouse will detect this)</span>
+          <p style="margin: 5px 0 0 0; font-size: 0.85rem;">Run a Lighthouse report to see accessibility scores.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Practice File for Web Developers &copy; 2026</p>
+    </footer>
+  </div>
+
+  <script>
+    // 11.1: Debugging
+    function normalize(string) {
+      debugger; // Browser will pause here
+      return string.replace(/[^\w]/g, "").toLowerCase();
+    }
+
+    function runDebug() {
+      const val = document.getElementById('debugInput').value;
+      if (!val) return alert("Kichu likhun!");
+
+      document.getElementById('debugResultBox').style.display = "block";
+      const result = normalize(val);
+      document.getElementById('debugResult').innerText = result;
+    }
+
+    // 11.2: Performance
+    function runPerformanceTest() {
+      const status = document.getElementById('perf-result');
+      document.getElementById('perfResultBox').style.display = "block";
+      status.innerText = "Processing heavy loop...";
+
+      setTimeout(() => {
+        const start = performance.now();
+        let count = 0;
+        for (let i = 0; i < 50000000; i++) {
+          count += Math.sqrt(i);
+        }
+        const end = performance.now();
+        status.innerText = `Finished in ${Math.round(end - start)}ms`;
+      }, 100);
+    }
+
+    // 11.3: Coverage
+    function useExtraCode() {
+      document.getElementById('coverageResultBox').style.display = "block";
+      const data = Array(500).fill("Optimizing...");
+      const processed = data.map(d => d.toUpperCase());
+      document.getElementById('coverage-msg').innerText = "Code is now active in Coverage tab!";
+      console.log("Coverage test: Logic executed.");
+    }
+  </script>
+
+</body>
+
+</html>

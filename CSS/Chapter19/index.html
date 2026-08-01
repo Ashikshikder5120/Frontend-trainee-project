@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Layout Design | Ashik Shikder</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="nav-content">
+      <div class="logo">ASHIK<span>CSS</span></div>
+      <ul class="nav-links">
+        <li><a href="#position">Position</a></li>
+        <li><a href="#flexbox">Flexbox</a></li>
+        <li><a href="#grid">Grid</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main class="main-wrapper">
+
+    <section id="position" class="glass-card">
+      <h2 class="section-title">19.1 & 19.3 Advanced Positioning</h2>
+      <div class="pos-container">
+        <div class="pos-box static">Static</div>
+        <div class="pos-box relative">Relative</div>
+        <div class="pos-box absolute">Absolute</div>
+        <div class="pos-box z-master">Z-Index 50</div>
+      </div>
+    </section>
+
+    <section id="flexbox" class="glass-card">
+      <h2 class="section-title">19.4 Flexbox Alignment</h2>
+      <div class="flex-wrapper">
+        <div class="flex-item item-1">Center 1</div>
+        <div class="flex-item item-2">Center 2</div>
+        <div class="flex-item item-3">Center 3</div>
+      </div>
+    </section>
+
+    <section id="grid" class="glass-card">
+      <h2 class="section-title">19.5 CSS Grid Architecture</h2>
+      <div class="grid-wrapper">
+        <div class="grid-box span-full">Full Width Header</div>
+        <div class="grid-box">Sidebar Left</div>
+        <div class="grid-box">Main Content Area</div>
+        <div class="grid-box">Sidebar Right</div>
+        <div class="grid-box span-full">Footer Area</div>
+      </div>
+    </section>
+
+    <div class="sticky-status">Sticky Mode: ON</div>
+
+  </main>
+
+</body>
+
+</html>
